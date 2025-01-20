@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export const AdminBlogs = () => {
   const [title, setTitle] = useState("");
@@ -12,13 +13,19 @@ export const AdminBlogs = () => {
   const [image, setImage] = useState<File | null>(null);
   const { toast } = useToast();
 
-  const { data: blogs, refetch } = useQuery({
+  const { data: blogs, refetch, isLoading, error } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
+      const { data: session } = await supabase.auth.getSession();
+      if (!session.session) {
+        throw new Error("Not authenticated");
+      }
+
       const { data, error } = await supabase
         .from("blogs")
         .select("*")
         .order("created_at", { ascending: false });
+
       if (error) throw error;
       return data;
     },
@@ -27,6 +34,16 @@ export const AdminBlogs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const { data: session } = await supabase.auth.getSession();
+      if (!session.session) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to create blog posts",
+          variant: "destructive",
+        });
+        return;
+      }
+
       let imageUrl = null;
       if (image) {
         const fileExt = image.name.split(".").pop();
@@ -54,6 +71,7 @@ export const AdminBlogs = () => {
       setImage(null);
       refetch();
     } catch (error) {
+      console.error("Error creating blog post:", error);
       toast({
         title: "Error",
         description: "Failed to create blog post",
@@ -61,6 +79,20 @@ export const AdminBlogs = () => {
       });
     }
   };
+
+  if (isLoading) {
+    return <div>Loading blogs...</div>;
+  }
+
+  if (error) {
+    return (
+      <Alert variant="destructive">
+        <AlertDescription>
+          Error loading blogs: {error instanceof Error ? error.message : "Unknown error"}
+        </AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="space-y-8">
