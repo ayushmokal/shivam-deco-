@@ -22,10 +22,10 @@ export const Gallery = () => {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               controls
             >
-              <source src="/lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4" type="video/mp4" />
+              <source src="lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -42,10 +42,10 @@ export const Gallery = () => {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               controls
             >
-              <source src="/lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
+              <source src="lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -62,10 +62,10 @@ export const Gallery = () => {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               controls
             >
-              <source src="/lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4" type="video/mp4" />
+              <source src="lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
