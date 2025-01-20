@@ -3,19 +3,25 @@ import { Hero } from "../components/Hero";
 import { Services } from "../components/Services";
 import { Gallery } from "../components/Gallery";
 import { Contact } from "../components/Contact";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 const Index = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Hero />
-      <Services />
-      <Gallery />
-      <Contact />
-    </motion.div>
+    <>
+      <Header />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Hero />
+        <Services />
+        <Gallery />
+        <Contact />
+      </motion.div>
+      <Footer />
+    </>
   );
 };
 
