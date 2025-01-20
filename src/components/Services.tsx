@@ -1,45 +1,56 @@
 import { motion } from "framer-motion";
-import { Heart, Cake, Star } from "lucide-react";
+import { Heart, Cake, Star, Flower } from "lucide-react";
 
 const services = [
   {
     icon: Heart,
     title: "Wedding Decoration",
-    description: "Create the perfect ambiance for your special day with our elegant wedding decoration services.",
+    description: "Transform your special day into a magical celebration with our elegant wedding decorations.",
   },
   {
     icon: Cake,
     title: "Birthday Celebration",
-    description: "Make your birthday memorable with our creative and festive decoration arrangements.",
+    description: "Create unforgettable moments with our creative and festive birthday arrangements.",
+  },
+  {
+    icon: Flower,
+    title: "Floral Design",
+    description: "Exquisite floral arrangements that bring natural beauty to any occasion.",
   },
   {
     icon: Star,
     title: "Special Events",
-    description: "Transform any space for corporate events, parties, or special occasions.",
+    description: "Elevate your corporate events and special occasions with our bespoke decoration services.",
   },
 ];
 
 export const Services = () => {
   return (
-    <section className="py-20 px-4 bg-secondary-light">
+    <section className="py-20 px-4 bg-accent-cream">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-primary text-sm font-medium uppercase tracking-wider">Our Services</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2">Crafting Perfect Moments</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="font-serif text-4xl md:text-5xl text-primary-dark mb-4">Our Services</h2>
+            <p className="text-primary font-sans text-lg">Crafting Perfect Moments for Every Occasion</p>
+          </motion.div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all"
+              className="bg-white p-8 shadow-sm hover:shadow-md transition-all group"
             >
-              <service.icon className="w-12 h-12 text-primary mb-6" />
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-secondary">{service.description}</p>
+              <service.icon className="w-12 h-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="font-serif text-xl text-primary-dark mb-3">{service.title}</h3>
+              <p className="text-primary/80 font-sans text-sm leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>
