@@ -16,17 +16,12 @@ export const Gallery = () => {
             transition={{ duration: 0.5 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <video 
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/lovable-uploads/your-first-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <iframe
+              className="w-full h-full"
+              src="https://www.instagram.com/p/DFAOVeBMjBd/embed"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
           </motion.div>
           
           <motion.div
@@ -35,17 +30,12 @@ export const Gallery = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <video 
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/lovable-uploads/your-second-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <iframe
+              className="w-full h-full"
+              src="https://www.instagram.com/p/DESb_Ugs9aP/embed"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
           </motion.div>
           
           <motion.div
@@ -54,17 +44,12 @@ export const Gallery = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <video 
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/lovable-uploads/your-third-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <iframe
+              className="w-full h-full"
+              src="https://www.instagram.com/p/DD2FCAnPhFg/embed"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
           </motion.div>
         </div>
       </div>
