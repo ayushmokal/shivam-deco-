@@ -14,7 +14,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl h-[400px]"
           >
             <video 
               className="w-full h-full object-cover"
@@ -33,7 +33,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl h-[400px]"
           >
             <video 
               className="w-full h-full object-cover"
@@ -52,7 +52,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl h-[400px]"
           >
             <video 
               className="w-full h-full object-cover"
