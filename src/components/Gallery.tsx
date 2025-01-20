@@ -24,7 +24,7 @@ export const Gallery = () => {
               loop
               playsInline
             >
-              <source src="/path-to-your-video-1.mp4" type="video/mp4" />
+              <source src="/lovable-uploads/your-first-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -43,7 +43,7 @@ export const Gallery = () => {
               loop
               playsInline
             >
-              <source src="/path-to-your-video-2.mp4" type="video/mp4" />
+              <source src="/lovable-uploads/your-second-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -62,7 +62,7 @@ export const Gallery = () => {
               loop
               playsInline
             >
-              <source src="/path-to-your-video-3.mp4" type="video/mp4" />
+              <source src="/lovable-uploads/your-third-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
