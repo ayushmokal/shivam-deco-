@@ -18,11 +18,11 @@ export const Gallery = () => {
           >
             <video 
               className="w-full h-full object-cover"
-              controls
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
             >
               <source src="/lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -37,11 +37,11 @@ export const Gallery = () => {
           >
             <video 
               className="w-full h-full object-cover"
-              controls
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
             >
               <source src="/lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -56,11 +56,11 @@ export const Gallery = () => {
           >
             <video 
               className="w-full h-full object-cover"
-              controls
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
             >
               <source src="/lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
