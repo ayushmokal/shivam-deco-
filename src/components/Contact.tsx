@@ -1,7 +1,41 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 export const Contact = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { error } = await supabase.from("enquiries").insert({
+        name,
+        email,
+        message,
+      });
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Your message has been sent successfully!",
+      });
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <section className="py-20 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -21,7 +55,7 @@ export const Contact = () => {
               <Phone className="w-6 h-6 text-primary" />
               <div>
                 <h3 className="font-medium">Phone</h3>
-                <p className="text-secondary">+1 234 567 890</p>
+                <p className="text-gray-600">+1 234 567 890</p>
               </div>
             </div>
             
@@ -29,7 +63,7 @@ export const Contact = () => {
               <Mail className="w-6 h-6 text-primary" />
               <div>
                 <h3 className="font-medium">Email</h3>
-                <p className="text-secondary">contact@shivamdecorators.com</p>
+                <p className="text-gray-600">contact@shivamdecorators.com</p>
               </div>
             </div>
             
@@ -37,7 +71,7 @@ export const Contact = () => {
               <MapPin className="w-6 h-6 text-primary" />
               <div>
                 <h3 className="font-medium">Address</h3>
-                <p className="text-secondary">123 Decoration Street, City</p>
+                <p className="text-gray-600">123 Decoration Street, City</p>
               </div>
             </div>
           </motion.div>
@@ -46,24 +80,34 @@ export const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            onSubmit={handleSubmit}
             className="space-y-6"
           >
             <input
               type="text"
               placeholder="Your Name"
-              className="w-full px-4 py-3 rounded-lg border border-secondary-light focus:outline-none focus:border-primary"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary"
             />
             <input
               type="email"
               placeholder="Your Email"
-              className="w-full px-4 py-3 rounded-lg border border-secondary-light focus:outline-none focus:border-primary"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary"
             />
             <textarea
               placeholder="Your Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
               rows={4}
-              className="w-full px-4 py-3 rounded-lg border border-secondary-light focus:outline-none focus:border-primary"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary"
             />
-            <button className="w-full bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg transition-colors">
+            <button className="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg transition-colors">
               Send Message
             </button>
           </motion.form>
