@@ -14,7 +14,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative aspect-video overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl"
           >
             <video 
               className="w-full h-full object-cover"
@@ -33,7 +33,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative aspect-video overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl"
           >
             <video 
               className="w-full h-full object-cover"
@@ -41,7 +41,7 @@ export const Gallery = () => {
               autoPlay
               muted
               loop
-              playsInLine
+              playsInline
             >
               <source src="/lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -52,7 +52,7 @@ export const Gallery = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative aspect-video overflow-hidden rounded-xl"
+            className="relative overflow-hidden rounded-xl"
           >
             <video 
               className="w-full h-full object-cover"
