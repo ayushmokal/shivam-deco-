@@ -20,7 +20,8 @@ export const Hero = () => {
             className="w-full h-auto rounded-lg shadow-xl"
             whileHover={{ 
               scale: 1.05,
-              transition: { duration: 0.3 }
+              rotateY: 5,
+              transition: { duration: 0.4 }
             }}
           />
         </motion.div>
@@ -37,32 +38,35 @@ export const Hero = () => {
           className="text-center md:text-left z-10 md:w-1/2"
         >
           <motion.h1 
-            className="font-serif text-6xl md:text-7xl text-primary-dark mb-4"
+            className="font-serif text-5xl md:text-6xl text-primary-dark mb-6 tracking-tight leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             Shivam
             <br />
-            Decorators
+            <span className="text-primary-light">Decorators</span>
           </motion.h1>
           <motion.div 
-            className="w-24 h-0.5 bg-primary mx-auto md:mx-0 mb-6"
+            className="w-16 h-[1px] bg-primary mx-auto md:mx-0 mb-8"
             initial={{ width: 0 }}
-            animate={{ width: 96 }}
+            animate={{ width: 64 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           ></motion.div>
           <motion.p 
-            className="font-serif text-xl md:text-2xl text-primary mb-8 italic"
+            className="font-sans text-lg md:text-xl text-primary/80 mb-10 font-light tracking-wide"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            "Creating magical moments through elegant decorations"
+            Creating magical moments through elegant decorations
           </motion.p>
           <motion.button 
-            className="bg-primary hover:bg-primary-dark text-white px-8 py-3 transition-colors font-sans text-sm tracking-wider uppercase"
-            whileHover={{ scale: 1.05 }}
+            className="bg-primary/90 hover:bg-primary text-white px-8 py-3 transition-all font-sans text-sm tracking-widest uppercase"
+            whileHover={{ 
+              scale: 1.05,
+              letterSpacing: "0.2em"
+            }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,6 +76,13 @@ export const Hero = () => {
           </motion.button>
         </motion.div>
       </div>
+
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-accent-beige/50 to-transparent pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      />
     </div>
   );
 };
