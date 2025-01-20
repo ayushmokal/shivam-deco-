@@ -19,12 +19,21 @@ export const Login = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
-      <h1 className="text-3xl font-bold text-center mb-8">Admin Login</h1>
+      <h1 className="text-3xl font-serif text-center mb-8">Admin Login</h1>
       <Auth
         supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
+        appearance={{
+          theme: ThemeSupa,
+          style: {
+            button: { fontFamily: 'Playfair Display, serif' },
+            anchor: { display: 'none' }, // Hides the "Forgot password" and "Sign up" links
+            input: { fontFamily: 'Montserrat, sans-serif' },
+            label: { fontFamily: 'Montserrat, sans-serif' }
+          },
+        }}
         providers={[]}
         theme="light"
+        showLinks={false} // Disables all auth links
       />
     </div>
   );
