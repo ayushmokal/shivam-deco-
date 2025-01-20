@@ -16,12 +16,17 @@ export const Gallery = () => {
             transition={{ duration: 0.5 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <iframe
-              className="w-full h-full"
-              src="https://www.instagram.com/p/DFAOVeBMjBd/embed"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="https://scontent.cdninstagram.com/v/t50.2886-16/408675673_1398011457476018_7776818062537411837_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=102&_nc_ohc=Hs7_4Oc5CZYAX8Vy4Hs&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfBPLPWXYZQ_4Q_8Hs7_4Oc5CZYAX8Vy4Hs&oe=65E9F8A0&_nc_sid=10d13b" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </motion.div>
           
           <motion.div
@@ -30,12 +35,17 @@ export const Gallery = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <iframe
-              className="w-full h-full"
-              src="https://www.instagram.com/p/DESb_Ugs9aP/embed"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="https://scontent.cdninstagram.com/v/t50.2886-16/408675673_1398011457476018_7776818062537411837_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=102&_nc_ohc=Hs7_4Oc5CZYAX8Vy4Hs&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfBPLPWXYZQ_4Q_8Hs7_4Oc5CZYAX8Vy4Hs&oe=65E9F8A0&_nc_sid=10d13b" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </motion.div>
           
           <motion.div
@@ -44,12 +54,17 @@ export const Gallery = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative aspect-square overflow-hidden rounded-xl"
           >
-            <iframe
-              className="w-full h-full"
-              src="https://www.instagram.com/p/DD2FCAnPhFg/embed"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="https://scontent.cdninstagram.com/v/t50.2886-16/408675673_1398011457476018_7776818062537411837_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=102&_nc_ohc=Hs7_4Oc5CZYAX8Vy4Hs&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfBPLPWXYZQ_4Q_8Hs7_4Oc5CZYAX8Vy4Hs&oe=65E9F8A0&_nc_sid=10d13b" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </motion.div>
         </div>
       </div>
