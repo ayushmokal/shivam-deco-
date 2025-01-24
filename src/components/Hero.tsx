@@ -58,7 +58,7 @@ export const Hero = () => {
           </motion.p>
           
           <motion.button 
-            className="bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-md transition-all font-sans text-base"
+            className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-md transition-all font-sans text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
