@@ -6,6 +6,7 @@ import { Contact } from "../components/Contact";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Stats } from "../components/Stats";
+import { FAQ } from "../components/FAQ";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
         <Services />
         <VideoGallery />
         <Stats />
+        <FAQ />
         <Contact />
       </motion.div>
       <Footer />
