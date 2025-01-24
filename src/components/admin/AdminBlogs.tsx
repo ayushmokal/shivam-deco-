@@ -6,6 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Pencil } from "lucide-react";
 
 const sampleBlogs = [
   {
@@ -29,6 +37,7 @@ export const AdminBlogs = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [editingBlog, setEditingBlog] = useState<any>(null);
   const { toast } = useToast();
 
   const { data: blogs, refetch, isLoading, error } = useQuery({
@@ -93,6 +102,58 @@ export const AdminBlogs = () => {
       toast({
         title: "Error",
         description: "Failed to create blog post",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { data: session } = await supabase.auth.getSession();
+      if (!session.session) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to edit blog posts",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      let imageUrl = editingBlog.image_url;
+      if (image) {
+        const fileExt = image.name.split(".").pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const { error: uploadError } = await supabase.storage
+          .from("gallery")
+          .upload(fileName, image);
+        if (uploadError) throw uploadError;
+        imageUrl = `${supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl}`;
+      }
+
+      const { error } = await supabase
+        .from("blogs")
+        .update({
+          title: editingBlog.title,
+          content: editingBlog.content,
+          image_url: imageUrl,
+        })
+        .eq("id", editingBlog.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Blog post updated successfully",
+      });
+      setEditingBlog(null);
+      setImage(null);
+      refetch();
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update blog post",
         variant: "destructive",
       });
     }
@@ -180,8 +241,60 @@ export const AdminBlogs = () => {
         <h3 className="text-xl font-semibold">Recent Blog Posts</h3>
         {blogs?.map((blog) => (
           <div key={blog.id} className="border p-4 rounded-lg">
-            <h4 className="font-semibold">{blog.title}</h4>
-            <p className="text-sm text-gray-600 mt-2">{blog.content.substring(0, 100)}...</p>
+            <div className="flex justify-between items-start mb-4">
+              <h4 className="font-semibold">{blog.title}</h4>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setEditingBlog(blog)}
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit Blog Post</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={handleEdit} className="space-y-4">
+                    <Input
+                      placeholder="Blog Title"
+                      value={editingBlog?.title}
+                      onChange={(e) =>
+                        setEditingBlog({ ...editingBlog, title: e.target.value })
+                      }
+                      required
+                    />
+                    <Textarea
+                      placeholder="Blog Content"
+                      value={editingBlog?.content}
+                      onChange={(e) =>
+                        setEditingBlog({ ...editingBlog, content: e.target.value })
+                      }
+                      required
+                      className="min-h-[200px]"
+                    />
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => setImage(e.target.files?.[0] || null)}
+                    />
+                    {blog.image_url && (
+                      <img
+                        src={blog.image_url}
+                        alt="Current blog image"
+                        className="w-full h-32 object-cover rounded"
+                      />
+                    )}
+                    <Button type="submit">Update Blog Post</Button>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            </div>
+            <p className="text-sm text-gray-600 mt-2">
+              {blog.content.substring(0, 100)}...
+            </p>
             {blog.image_url && (
               <img
                 src={blog.image_url}
