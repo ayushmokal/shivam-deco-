@@ -27,8 +27,7 @@ export const FAQ = () => {
   const smallImage = faqImages?.find(img => img.position === 'faq_small')?.url;
 
   return (
-    <section className="py-24 px-4 bg-accent-beige relative overflow-hidden">
-      {/* Decorative Elements */}
+    <section className="py-24 px-4 bg-accent-cream relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 0.2, scale: 1 }}
