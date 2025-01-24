@@ -70,21 +70,24 @@ export const AdminBlogs = () => {
     const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT);
-
     try {
-      const { error: uploadError, data } = await supabase.storage
-        .from("gallery")
-        .upload(fileName, file, {
-          abortSignal: controller.signal,
-        });
+      const { error: uploadError, data } = await Promise.race([
+        supabase.storage
+          .from("gallery")
+          .upload(fileName, file),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Upload timed out")), UPLOAD_TIMEOUT)
+        )
+      ]);
 
       if (uploadError) throw uploadError;
 
       return supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl;
-    } finally {
-      clearTimeout(timeoutId);
+    } catch (error) {
+      if (error.message === "Upload timed out") {
+        throw new Error("Upload timed out. Please try again.");
+      }
+      throw error;
     }
   };
 
