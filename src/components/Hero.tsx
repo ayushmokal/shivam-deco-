@@ -98,14 +98,14 @@ export const Hero = () => {
             bounce: 0.4,
             delay: 0.2 
           }}
-          className="relative md:w-1/2 h-[700px]"
+          className="relative md:w-1/2 h-[600px]"
         >
           {/* Main large image */}
           {mainImage && (
             <motion.img
               src={mainImage}
               alt="Floral Designer with Bouquet"
-              className="absolute right-0 top-0 w-full h-auto rounded-lg shadow-xl z-10"
+              className="absolute right-0 top-0 w-[90%] h-auto rounded-lg shadow-xl z-10"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -117,7 +117,7 @@ export const Hero = () => {
             <motion.img
               src={leftImage}
               alt="Floral Decoration"
-              className="absolute left-0 top-[30%] w-[45%] h-auto rounded-lg shadow-xl z-20"
+              className="absolute left-0 top-[30%] w-[35%] h-auto rounded-lg shadow-xl z-20"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -129,7 +129,7 @@ export const Hero = () => {
             <motion.img
               src={rightImage}
               alt="Wedding Venue Setup"
-              className="absolute right-0 bottom-[10%] w-[55%] h-auto rounded-lg shadow-xl z-30"
+              className="absolute right-0 bottom-[10%] w-[45%] h-auto rounded-lg shadow-xl z-30"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
