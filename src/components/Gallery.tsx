@@ -18,7 +18,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-3 md:order-3"
           >
             <img 
-              src="https://source.unsplash.com/photo-1488590528505-98d2b5aba04b"
+              src="https://source.unsplash.com/random/800x600?decoration,wedding"
               alt="Decoration 1"
               className="w-full h-full object-cover"
             />
@@ -31,7 +31,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-2 md:order-2"
           >
             <img 
-              src="https://source.unsplash.com/photo-1518770660439-4636190af475"
+              src="https://source.unsplash.com/random/800x600?wedding,party"
               alt="Decoration 2"
               className="w-full h-full object-cover"
             />
@@ -44,7 +44,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-1 md:order-1"
           >
             <img 
-              src="https://source.unsplash.com/photo-1581091226825-a6a2a5aee158"
+              src="https://source.unsplash.com/random/800x600?event,decoration"
               alt="Decoration 3"
               className="w-full h-full object-cover"
             />
@@ -60,7 +60,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px]"
           >
             <img 
-              src="https://source.unsplash.com/photo-1485827404703-89b55fcc595e"
+              src="https://source.unsplash.com/random/800x600?party,celebration"
               alt="Decoration 4"
               className="w-full h-full object-cover"
             />
@@ -73,7 +73,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px]"
           >
             <img 
-              src="https://source.unsplash.com/photo-1526374965328-7f61d4dc18c5"
+              src="https://source.unsplash.com/random/800x600?wedding,venue"
               alt="Decoration 5"
               className="w-full h-full object-cover"
             />
@@ -86,7 +86,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px]"
           >
             <img 
-              src="https://source.unsplash.com/photo-1649972904349-6e44c42644a7"
+              src="https://source.unsplash.com/random/800x600?decoration,event"
               alt="Decoration 6"
               className="w-full h-full object-cover"
             />
@@ -102,7 +102,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-3 md:order-3"
           >
             <img 
-              src="https://source.unsplash.com/photo-1488590528505-98d2b5aba04b"
+              src="https://source.unsplash.com/random/800x600?wedding,celebration"
               alt="Decoration 7"
               className="w-full h-full object-cover"
             />
@@ -115,7 +115,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-2 md:order-2"
           >
             <img 
-              src="https://source.unsplash.com/photo-1518770660439-4636190af475"
+              src="https://source.unsplash.com/random/800x600?party,venue"
               alt="Decoration 8"
               className="w-full h-full object-cover"
             />
@@ -128,7 +128,7 @@ export const Gallery = () => {
             className="relative overflow-hidden rounded-xl h-[300px] order-1 md:order-1"
           >
             <img 
-              src="https://source.unsplash.com/photo-1581091226825-a6a2a5aee158"
+              src="https://source.unsplash.com/random/800x600?decoration,party"
               alt="Decoration 9"
               className="w-full h-full object-cover"
             />
@@ -151,7 +151,7 @@ export const Gallery = () => {
               playsInline
               preload="metadata"
             >
-              <source src="lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4" type="video/mp4" />
+              <source src="/lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -170,7 +170,7 @@ export const Gallery = () => {
               playsInline
               preload="metadata"
             >
-              <source src="lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
+              <source src="/lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>
@@ -189,7 +189,7 @@ export const Gallery = () => {
               playsInline
               preload="metadata"
             >
-              <source src="lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4" type="video/mp4" />
+              <source src="/lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>

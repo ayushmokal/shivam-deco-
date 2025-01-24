@@ -19,17 +19,17 @@ export const Header = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="#services" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                <Link to="/#services" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Services
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="#gallery" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                <Link to="/gallery" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Gallery
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                <Link to="/#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Contact
                 </Link>
               </NavigationMenuItem>
