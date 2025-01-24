@@ -17,7 +17,7 @@ export const FAQ = () => {
         transition={{ duration: 1 }}
         className="absolute left-5 top-20"
       >
-        <Flower className="w-16 h-16 text-primary/30" />
+        <Flower className="w-16 h-16 text-[#836C50]/30" />
       </motion.div>
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -25,7 +25,7 @@ export const FAQ = () => {
         transition={{ duration: 1 }}
         className="absolute right-5 bottom-20"
       >
-        <Flower className="w-16 h-16 text-primary/30" />
+        <Flower className="w-16 h-16 text-[#836C50]/30" />
       </motion.div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -68,7 +68,7 @@ export const FAQ = () => {
             <AccordionItem value="item-1" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
-                  <Flower className="w-5 h-5 text-pink-400" />
+                  <Flower className="w-5 h-5 text-[#836C50]" />
                   <span className="font-medium text-gray-800">How Do You Charge for Services?</span>
                 </span>
               </AccordionTrigger>
@@ -80,7 +80,7 @@ export const FAQ = () => {
             <AccordionItem value="item-2" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
-                  <Flower className="w-5 h-5 text-pink-400" />
+                  <Flower className="w-5 h-5 text-[#836C50]" />
                   <span className="font-medium text-gray-800">What is Included in Wedding Planning Services?</span>
                 </span>
               </AccordionTrigger>
@@ -92,7 +92,7 @@ export const FAQ = () => {
             <AccordionItem value="item-3" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
-                  <Flower className="w-5 h-5 text-pink-400" />
+                  <Flower className="w-5 h-5 text-[#836C50]" />
                   <span className="font-medium text-gray-800">How Much Time Do You Need to Plan?</span>
                 </span>
               </AccordionTrigger>
@@ -104,7 +104,7 @@ export const FAQ = () => {
             <AccordionItem value="item-4" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
-                  <Flower className="w-5 h-5 text-pink-400" />
+                  <Flower className="w-5 h-5 text-[#836C50]" />
                   <span className="font-medium text-gray-800">Do You Do Destination Weddings?</span>
                 </span>
               </AccordionTrigger>
@@ -116,7 +116,7 @@ export const FAQ = () => {
             <AccordionItem value="item-5" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
-                  <Flower className="w-5 h-5 text-pink-400" />
+                  <Flower className="w-5 h-5 text-[#836C50]" />
                   <span className="font-medium text-gray-800">How Much Experience Do You Have?</span>
                 </span>
               </AccordionTrigger>
