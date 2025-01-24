@@ -9,8 +9,7 @@ export const Gallery = () => {
       const { data, error } = await supabase
         .from("gallery_images")
         .select("*")
-        .order("created_at", { ascending: false })
-        .limit(6);
+        .order("created_at", { ascending: false });
       if (error) throw error;
       return data;
     },
@@ -25,25 +24,34 @@ export const Gallery = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-serif mb-4">Recent Decorations</h2>
-          <p className="text-muted-foreground">Explore our beautiful decorations</p>
+          <h2 className="text-4xl font-serif mb-4">Our Gallery</h2>
+          <p className="text-muted-foreground">Browse through our beautiful collection</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
           {images?.map((image, index) => (
             <motion.div
               key={image.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 * index }}
-              className="relative w-full"
-              style={{ paddingBottom: "56.25%" }} // 16:9 aspect ratio
+              transition={{ duration: 0.6, delay: 0.1 * index }}
+              className="group relative aspect-square overflow-hidden rounded-lg shadow-lg"
             >
               <img
                 src={image.url}
                 alt={image.title || "Gallery image"}
-                className="absolute top-0 left-0 w-full h-full object-cover rounded-lg shadow-lg"
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
               />
+              {image.title && (
+                <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end">
+                  <div className="p-4 text-white">
+                    <h3 className="text-lg font-semibold">{image.title}</h3>
+                    {image.description && (
+                      <p className="text-sm text-gray-200">{image.description}</p>
+                    )}
+                  </div>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
