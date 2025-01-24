@@ -6,13 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import type { Database } from "@/integrations/supabase/types";
+
+type VideoType = Database['public']['Tables']['gallery_videos']['Row'];
 
 export const AdminVideos = () => {
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: videos = [] } = useQuery({
+  const { data: videos = [] } = useQuery<VideoType[]>({
     queryKey: ['gallery-videos'],
     queryFn: async () => {
       const { data, error } = await supabase

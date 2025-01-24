@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
+
+type VideoType = Database['public']['Tables']['gallery_videos']['Row'];
 
 export const VideoGallery = () => {
-  const { data: videos = [] } = useQuery({
+  const { data: videos = [] } = useQuery<VideoType[]>({
     queryKey: ['gallery-videos'],
     queryFn: async () => {
       const { data, error } = await supabase
