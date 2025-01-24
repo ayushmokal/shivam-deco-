@@ -1,16 +1,23 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Separator } from "@/components/ui/separator";
+import { Pencil, Trash2, X, Check } from "lucide-react";
 
 export const AdminGallery = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [editingImage, setEditingImage] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [selectedRow, setSelectedRow] = useState<number>(1);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: images, refetch } = useQuery({
     queryKey: ["gallery_images"],
@@ -49,6 +56,7 @@ export const AdminGallery = () => {
         url: imageUrl,
         title,
         description,
+        row_number: selectedRow,
       });
       if (error) throw error;
 
@@ -69,15 +77,113 @@ export const AdminGallery = () => {
     }
   };
 
+  const handleEdit = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from("gallery_images")
+        .update({
+          title: editTitle,
+          description: editDescription,
+        })
+        .eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Image updated successfully",
+      });
+      setEditingImage(null);
+      queryClient.invalidateQueries({ queryKey: ["gallery_images"] });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update image",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDelete = async (id: string, url: string) => {
+    try {
+      // Delete from storage
+      const fileName = url.split("/").pop();
+      if (fileName) {
+        const { error: storageError } = await supabase.storage
+          .from("gallery")
+          .remove([fileName]);
+        if (storageError) throw storageError;
+      }
+
+      // Delete from database
+      const { error } = await supabase
+        .from("gallery_images")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Image deleted successfully",
+      });
+      queryClient.invalidateQueries({ queryKey: ["gallery_images"] });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete image",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const startEdit = (image: any) => {
+    setEditingImage(image.id);
+    setEditTitle(image.title || "");
+    setEditDescription(image.description || "");
+  };
+
+  const cancelEdit = () => {
+    setEditingImage(null);
+    setEditTitle("");
+    setEditDescription("");
+  };
+
+  const groupImagesByRow = (images: any[]) => {
+    const rows: { [key: number]: any[] } = {};
+    images?.forEach((image) => {
+      const rowNumber = image.row_number || 1;
+      if (!rows[rowNumber]) {
+        rows[rowNumber] = [];
+      }
+      rows[rowNumber].push(image);
+    });
+    return rows;
+  };
+
+  const groupedImages = images ? groupImagesByRow(images) : {};
+
   return (
     <div className="space-y-8">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files?.[0] || null)}
-          required
-        />
+        <div className="flex items-center gap-4">
+          <Input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files?.[0] || null)}
+            required
+          />
+          <select
+            className="border rounded-md p-2"
+            value={selectedRow}
+            onChange={(e) => setSelectedRow(Number(e.target.value))}
+          >
+            {[1, 2, 3, 4, 5].map((row) => (
+              <option key={row} value={row}>
+                Row {row}
+              </option>
+            ))}
+          </select>
+        </div>
         <Input
           placeholder="Image Title"
           value={title}
@@ -91,15 +197,58 @@ export const AdminGallery = () => {
         <Button type="submit">Upload Image</Button>
       </form>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {images?.map((image) => (
-          <div key={image.id} className="border rounded-lg p-4">
-            <img src={image.url} alt={image.title || ""} className="w-full h-48 object-cover rounded" />
-            <h4 className="font-semibold mt-2">{image.title}</h4>
-            <p className="text-sm text-gray-600">{image.description}</p>
+      {[1, 2, 3, 4, 5].map((rowNumber) => (
+        <div key={rowNumber}>
+          <h3 className="text-lg font-semibold mb-4">Row {rowNumber}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {groupedImages[rowNumber]?.map((image: any) => (
+              <div key={image.id} className="border rounded-lg p-4">
+                <img src={image.url} alt={image.title || ""} className="w-full h-48 object-cover rounded" />
+                {editingImage === image.id ? (
+                  <div className="mt-2 space-y-2">
+                    <Input
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      placeholder="Title"
+                    />
+                    <Textarea
+                      value={editDescription}
+                      onChange={(e) => setEditDescription(e.target.value)}
+                      placeholder="Description"
+                    />
+                    <div className="flex gap-2">
+                      <Button size="sm" onClick={() => handleEdit(image.id)}>
+                        <Check className="h-4 w-4" />
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={cancelEdit}>
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2">
+                    <h4 className="font-semibold">{image.title}</h4>
+                    <p className="text-sm text-gray-600">{image.description}</p>
+                    <div className="flex gap-2 mt-2">
+                      <Button size="sm" variant="outline" onClick={() => startEdit(image)}>
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDelete(image.id, image.url)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+          <Separator className="my-4" />
+        </div>
+      ))}
     </div>
   );
 };
