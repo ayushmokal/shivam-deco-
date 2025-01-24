@@ -74,17 +74,19 @@ export const VideoGallery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 * index }}
               className="relative w-full"
-              style={{ paddingBottom: "177.78%" }}
+              style={{ paddingBottom: "140%" }}
             >
-              <video
-                src={video.url}
-                className="absolute top-0 left-0 w-full h-full object-cover rounded-lg shadow-lg"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-              />
+              <div className="absolute inset-0 rounded-[3rem] overflow-hidden" style={{ borderRadius: '3rem 3rem 3rem 3rem' }}>
+                <video
+                  src={video.url}
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                />
+              </div>
             </motion.div>
           ))}
         </div>
