@@ -5,6 +5,7 @@ import { VideoGallery } from "../components/VideoGallery";
 import { Contact } from "../components/Contact";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { Stats } from "../components/Stats";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <Hero />
         <Services />
         <VideoGallery />
+        <Stats />
         <Contact />
       </motion.div>
       <Footer />
