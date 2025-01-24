@@ -22,11 +22,12 @@ export const Gallery = () => {
             className="relative aspect-video rounded-lg overflow-hidden shadow-lg"
           >
             <video 
-              src="/lovable-uploads/#HaldiCeremony#HaldiCelebration#IndianWedding#HaldiVibes#ShaadiShenanigans #Yellow Vibes#WeddingStyle#BrideGoals #WeddingGlow #Traditionall #WeddingRituals (1).mp4"
+              src="/lovable-uploads/%23HaldiCeremony%23HaldiCelebration%23IndianWedding%23HaldiVibes%23ShaadiShenanigans%20%23Yellow%20Vibes%23WeddingStyle%23BrideGoals%20%23WeddingGlow%20%23Traditionall%20%23WeddingRituals%20(1).mp4"
               className="w-full h-full object-cover"
               controls
               muted
               loop
+              autoPlay
             />
           </motion.div>
 
@@ -37,11 +38,12 @@ export const Gallery = () => {
             className="relative aspect-video rounded-lg overflow-hidden shadow-lg"
           >
             <video 
-              src="/lovable-uploads/#wedding #traditionall #weddingrituals #weddingdesigners #indianwedding #weddingdecor #weddingplanner #weddinginspo #flowerwedding.mp4"
+              src="/lovable-uploads/%23wedding%20%23traditionall%20%23weddingrituals%20%23weddingdesigners%20%23indianwedding%20%23weddingdecor%20%23weddingplanner%20%23weddinginspo%20%23flowerwedding.mp4"
               className="w-full h-full object-cover"
               controls
               muted
               loop
+              autoPlay
             />
           </motion.div>
 
@@ -52,11 +54,12 @@ export const Gallery = () => {
             className="relative aspect-video rounded-lg overflow-hidden shadow-lg"
           >
             <video 
-              src="/lovable-uploads/#weddingrituals #indianwedding #weddingdesigners #weddingdesigners #wedding #weddinginspo.mp4"
+              src="/lovable-uploads/%23weddingrituals%20%23indianwedding%20%23weddingdesigners%20%23weddingdesigners%20%23wedding%20%23weddinginspo.mp4"
               className="w-full h-full object-cover"
               controls
               muted
               loop
+              autoPlay
             />
           </motion.div>
         </div>
