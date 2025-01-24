@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 export const AdminHeroImages = () => {
   const [uploading, setUploading] = useState(false);
@@ -76,65 +77,116 @@ export const AdminHeroImages = () => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Main Image */}
-        <div className="border rounded-lg p-4">
-          <h3 className="font-semibold mb-2">Main Image</h3>
-          <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
-            {heroImages?.find((img) => img.position === "main")?.url && (
-              <img
-                src={heroImages.find((img) => img.position === "main")?.url}
-                alt="Main hero"
-                className="w-full h-full object-cover"
-              />
-            )}
+      <div>
+        <h2 className="text-lg font-semibold mb-4">Hero Section Images</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Main Image */}
+          <div className="border rounded-lg p-4">
+            <h3 className="font-semibold mb-2">Main Image</h3>
+            <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              {heroImages?.find((img) => img.position === "main")?.url && (
+                <img
+                  src={heroImages.find((img) => img.position === "main")?.url}
+                  alt="Main hero"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e, "main")}
+              disabled={uploading}
+            />
           </div>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageUpload(e, "main")}
-            disabled={uploading}
-          />
-        </div>
 
-        {/* Left Image */}
-        <div className="border rounded-lg p-4">
-          <h3 className="font-semibold mb-2">Left Image</h3>
-          <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
-            {heroImages?.find((img) => img.position === "left")?.url && (
-              <img
-                src={heroImages.find((img) => img.position === "left")?.url}
-                alt="Left hero"
-                className="w-full h-full object-cover"
-              />
-            )}
+          {/* Left Image */}
+          <div className="border rounded-lg p-4">
+            <h3 className="font-semibold mb-2">Left Image</h3>
+            <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              {heroImages?.find((img) => img.position === "left")?.url && (
+                <img
+                  src={heroImages.find((img) => img.position === "left")?.url}
+                  alt="Left hero"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e, "left")}
+              disabled={uploading}
+            />
           </div>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageUpload(e, "left")}
-            disabled={uploading}
-          />
-        </div>
 
-        {/* Right Image */}
-        <div className="border rounded-lg p-4">
-          <h3 className="font-semibold mb-2">Right Image</h3>
-          <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
-            {heroImages?.find((img) => img.position === "right")?.url && (
-              <img
-                src={heroImages.find((img) => img.position === "right")?.url}
-                alt="Right hero"
-                className="w-full h-full object-cover"
-              />
-            )}
+          {/* Right Image */}
+          <div className="border rounded-lg p-4">
+            <h3 className="font-semibold mb-2">Right Image</h3>
+            <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              {heroImages?.find((img) => img.position === "right")?.url && (
+                <img
+                  src={heroImages.find((img) => img.position === "right")?.url}
+                  alt="Right hero"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e, "right")}
+              disabled={uploading}
+            />
           </div>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleImageUpload(e, "right")}
-            disabled={uploading}
-          />
+        </div>
+      </div>
+
+      <Separator className="my-8" />
+
+      {/* FAQ Images Section */}
+      <div>
+        <h2 className="text-lg font-semibold mb-4">FAQ Section Images</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* FAQ Main Image */}
+          <div className="border rounded-lg p-4">
+            <h3 className="font-semibold mb-2">FAQ Main Image</h3>
+            <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              {heroImages?.find((img) => img.position === "faq_main")?.url && (
+                <img
+                  src={heroImages.find((img) => img.position === "faq_main")?.url}
+                  alt="FAQ main"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e, "faq_main")}
+              disabled={uploading}
+            />
+          </div>
+
+          {/* FAQ Small Image */}
+          <div className="border rounded-lg p-4">
+            <h3 className="font-semibold mb-2">FAQ Small Image</h3>
+            <div className="aspect-[3/4] mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              {heroImages?.find((img) => img.position === "faq_small")?.url && (
+                <img
+                  src={heroImages.find((img) => img.position === "faq_small")?.url}
+                  alt="FAQ small"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageUpload(e, "faq_small")}
+              disabled={uploading}
+            />
+          </div>
         </div>
       </div>
     </div>
