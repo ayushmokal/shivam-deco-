@@ -42,42 +42,6 @@ export const VideoGallery = () => {
             </motion.div>
           ))}
         </div>
-
-        <div className="mt-16">
-          <h3 className="text-3xl font-serif mb-8 text-center">Featured Instagram Reels</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="aspect-[9/16] w-full"
-            >
-              <iframe
-                src="https://www.instagram.com/reel/DFAOVeBMjBd/embed?autoplay=1"
-                className="w-full h-full rounded-lg shadow-lg"
-                frameBorder="0"
-                scrolling="no"
-                allowFullScreen
-                allow="autoplay"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="aspect-[9/16] w-full"
-            >
-              <iframe
-                src="https://www.instagram.com/reel/DESb_Ugs9aP/embed?autoplay=1"
-                className="w-full h-full rounded-lg shadow-lg"
-                frameBorder="0"
-                scrolling="no"
-                allowFullScreen
-                allow="autoplay"
-              />
-            </motion.div>
-          </div>
-        </div>
       </div>
     </div>
   );
