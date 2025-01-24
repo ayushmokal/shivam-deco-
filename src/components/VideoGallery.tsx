@@ -1,12 +1,28 @@
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 import type { Database } from "@/integrations/supabase/types";
 
 type VideoType = Database['public']['Tables']['gallery_videos']['Row'];
 
 export const VideoGallery = () => {
-  const { data: videos = [] } = useQuery<VideoType[]>({
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        navigate('/login');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const { data: videos = [], error } = useQuery<VideoType[]>({
     queryKey: ['gallery-videos'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -14,10 +30,26 @@ export const VideoGallery = () => {
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (error) throw error;
+      if (error) {
+        if (error.message.includes('refresh_token_not_found')) {
+          navigate('/login');
+        }
+        throw error;
+      }
       return data || [];
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
   });
+
+  if (error) {
+    return null;
+  }
 
   return (
     <div className="py-16 bg-background">
