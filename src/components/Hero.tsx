@@ -10,7 +10,7 @@ export const Hero = () => {
         .from('gallery_videos')
         .select('*')
         .eq('featured', true)
-        .single();
+        .maybeSingle();
       
       if (error) throw error;
       return data;
