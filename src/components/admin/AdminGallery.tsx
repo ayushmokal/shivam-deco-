@@ -7,6 +7,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { Pencil, Trash2, X, Check } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export const AdminGallery = () => {
   const [title, setTitle] = useState("");
@@ -164,90 +171,111 @@ export const AdminGallery = () => {
 
   return (
     <div className="space-y-8">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex items-center gap-4">
+      <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-background rounded-lg border">
+        <CardHeader>
+          <CardTitle>Upload New Image</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-4">
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files?.[0] || null)}
+              required
+            />
+            <select
+              className="border rounded-md p-2"
+              value={selectedRow}
+              onChange={(e) => setSelectedRow(Number(e.target.value))}
+            >
+              {[1, 2, 3, 4, 5].map((row) => (
+                <option key={row} value={row}>
+                  Row {row}
+                </option>
+              ))}
+            </select>
+          </div>
           <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files?.[0] || null)}
-            required
+            placeholder="Image Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="mt-4"
           />
-          <select
-            className="border rounded-md p-2"
-            value={selectedRow}
-            onChange={(e) => setSelectedRow(Number(e.target.value))}
-          >
-            {[1, 2, 3, 4, 5].map((row) => (
-              <option key={row} value={row}>
-                Row {row}
-              </option>
-            ))}
-          </select>
-        </div>
-        <Input
-          placeholder="Image Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <Textarea
-          placeholder="Image Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <Button type="submit">Upload Image</Button>
+          <Textarea
+            placeholder="Image Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="mt-4"
+          />
+        </CardContent>
+        <CardFooter>
+          <Button type="submit">Upload Image</Button>
+        </CardFooter>
       </form>
 
       {[1, 2, 3, 4, 5].map((rowNumber) => (
-        <div key={rowNumber}>
-          <h3 className="text-lg font-semibold mb-4">Row {rowNumber}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {groupedImages[rowNumber]?.map((image: any) => (
-              <div key={image.id} className="border rounded-lg p-4">
-                <img src={image.url} alt={image.title || ""} className="w-full h-48 object-cover rounded" />
-                {editingImage === image.id ? (
-                  <div className="mt-2 space-y-2">
-                    <Input
-                      value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      placeholder="Title"
+        <Card key={rowNumber} className="overflow-hidden">
+          <CardHeader>
+            <CardTitle>Row {rowNumber}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {groupedImages[rowNumber]?.map((image: any) => (
+                <Card key={image.id} className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <img 
+                      src={image.url} 
+                      alt={image.title || ""} 
+                      className="w-full h-48 object-cover"
                     />
-                    <Textarea
-                      value={editDescription}
-                      onChange={(e) => setEditDescription(e.target.value)}
-                      placeholder="Description"
-                    />
-                    <div className="flex gap-2">
-                      <Button size="sm" onClick={() => handleEdit(image.id)}>
-                        <Check className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={cancelEdit}>
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mt-2">
-                    <h4 className="font-semibold">{image.title}</h4>
-                    <p className="text-sm text-gray-600">{image.description}</p>
-                    <div className="flex gap-2 mt-2">
-                      <Button size="sm" variant="outline" onClick={() => startEdit(image)}>
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDelete(image.id, image.url)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+                  </CardContent>
+                  <CardFooter className="flex flex-col space-y-2 p-4">
+                    {editingImage === image.id ? (
+                      <div className="space-y-2 w-full">
+                        <Input
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          placeholder="Title"
+                        />
+                        <Textarea
+                          value={editDescription}
+                          onChange={(e) => setEditDescription(e.target.value)}
+                          placeholder="Description"
+                        />
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={() => handleEdit(image.id)}>
+                            <Check className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={cancelEdit}>
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-full">
+                        <h4 className="font-semibold">{image.title}</h4>
+                        <p className="text-sm text-gray-600">{image.description}</p>
+                        <div className="flex gap-2 mt-2">
+                          <Button size="sm" variant="outline" onClick={() => startEdit(image)}>
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDelete(image.id, image.url)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
           <Separator className="my-4" />
-        </div>
+        </Card>
       ))}
     </div>
   );
