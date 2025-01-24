@@ -1,10 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Blog = () => {
+  const [selectedBlog, setSelectedBlog] = useState<{
+    title: string;
+    content: string;
+    created_at: string;
+    image_url: string | null;
+  } | null>(null);
+
   const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
@@ -38,9 +52,10 @@ const Blog = () => {
               {blogs?.map((blog) => (
                 <motion.article
                   key={blog.id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
+                  onClick={() => setSelectedBlog(blog)}
                 >
                   {blog.image_url && (
                     <img
@@ -61,6 +76,27 @@ const Blog = () => {
             </div>
           )}
         </motion.div>
+
+        <Dialog open={!!selectedBlog} onOpenChange={() => setSelectedBlog(null)}>
+          <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-serif">{selectedBlog?.title}</DialogTitle>
+            </DialogHeader>
+            {selectedBlog?.image_url && (
+              <img
+                src={selectedBlog.image_url}
+                alt={selectedBlog.title}
+                className="w-full h-64 object-cover rounded-md mb-4"
+              />
+            )}
+            <div className="space-y-4">
+              <p className="text-gray-600 whitespace-pre-wrap">{selectedBlog?.content}</p>
+              <p className="text-sm text-gray-500">
+                Published on {selectedBlog && new Date(selectedBlog.created_at).toLocaleDateString()}
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
       </main>
       <Footer />
     </>
