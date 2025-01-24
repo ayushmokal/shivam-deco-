@@ -13,7 +13,7 @@ export const AdminGallery = () => {
   const { toast } = useToast();
 
   const { data: images, refetch } = useQuery({
-    queryKey: ["gallery"],
+    queryKey: ["gallery_images"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("gallery_images")
