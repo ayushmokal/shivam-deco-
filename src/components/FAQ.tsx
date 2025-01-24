@@ -9,7 +9,7 @@ import {
 
 export const FAQ = () => {
   return (
-    <section className="py-24 px-4 bg-[#FFF5F6] relative overflow-hidden">
+    <section className="py-24 px-4 bg-accent-beige relative overflow-hidden">
       {/* Decorative Elements */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
