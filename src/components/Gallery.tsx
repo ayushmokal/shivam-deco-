@@ -10,7 +10,7 @@ export const Gallery = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-serif mb-4">Our Gallery</h2>
+          <h2 className="text-4xl font-serif mb-4">Recent Decorations</h2>
           <p className="text-muted-foreground">Explore our beautiful decorations</p>
         </motion.div>
 
