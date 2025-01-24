@@ -28,6 +28,11 @@ export const Header = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link to="/blog" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                  Blog
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link to="/contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Contact
                 </Link>
