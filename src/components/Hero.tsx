@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { Flower, LeafyGreen, Sprout } from "lucide-react";
 
 export const Hero = () => {
   const { data: heroImages } = useQuery({
@@ -22,6 +23,25 @@ export const Hero = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-accent-cream">
+      {/* Decorative Elements */}
+      <motion.div
+        initial={{ opacity: 0, rotate: -45 }}
+        animate={{ opacity: 0.2, rotate: 0 }}
+        transition={{ duration: 1.5 }}
+        className="absolute top-20 left-10"
+      >
+        <LeafyGreen className="w-16 h-16 text-primary/30" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, rotate: 45 }}
+        animate={{ opacity: 0.2, rotate: 0 }}
+        transition={{ duration: 1.5 }}
+        className="absolute bottom-20 right-10"
+      >
+        <Flower className="w-16 h-16 text-primary/30" />
+      </motion.div>
+
+      {/* Main Content */}
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12">
         <motion.div
           initial={{ opacity: 0, x: -100 }}

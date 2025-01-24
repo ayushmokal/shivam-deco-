@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart, Cake, Star, Flower } from "lucide-react";
+import { Heart, Cake, Star, Flower, LeafyGreen } from "lucide-react";
 
 const services = [
   {
@@ -26,7 +26,26 @@ const services = [
 
 export const Services = () => {
   return (
-    <section className="py-20 px-4 bg-accent-cream">
+    <section className="py-20 px-4 bg-accent-cream relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 0.2, x: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute left-0 top-1/4"
+      >
+        <LeafyGreen className="w-20 h-20 text-primary/30 transform -rotate-45" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 0.2, x: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute right-0 bottom-1/4"
+      >
+        <Flower className="w-20 h-20 text-primary/30 transform rotate-45" />
+      </motion.div>
+
+      {/* Main Content */}
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <motion.div

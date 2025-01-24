@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Flower, LeafyGreen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -37,7 +37,26 @@ export const Contact = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-white relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 0.2, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute left-5 top-20"
+      >
+        <Flower className="w-16 h-16 text-primary/30" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 0.2, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute right-5 bottom-20"
+      >
+        <LeafyGreen className="w-16 h-16 text-primary/30" />
+      </motion.div>
+
+      {/* Main Content */}
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Get in Touch</span>

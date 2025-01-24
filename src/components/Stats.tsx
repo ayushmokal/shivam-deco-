@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Flower, LeafyGreen, Sprout } from "lucide-react";
 
 export const Stats = () => {
   const stats = [
@@ -9,7 +10,26 @@ export const Stats = () => {
   ];
 
   return (
-    <section className="py-20 bg-accent-cream">
+    <section className="py-20 bg-accent-cream relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 0.2, y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute left-10 top-20"
+      >
+        <Sprout className="w-16 h-16 text-primary/30 transform -rotate-45" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 0.2, y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute right-10 bottom-20"
+      >
+        <LeafyGreen className="w-16 h-16 text-primary/30 transform rotate-45" />
+      </motion.div>
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

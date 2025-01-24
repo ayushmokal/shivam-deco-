@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import type { Database } from "@/integrations/supabase/types";
+import { Flower, LeafyGreen } from "lucide-react";
 
 type VideoType = Database['public']['Tables']['gallery_videos']['Row'];
 
@@ -54,7 +55,26 @@ export const VideoGallery = () => {
   }
 
   return (
-    <div className="py-16 bg-background">
+    <div className="py-16 bg-background relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        initial={{ opacity: 0, rotate: -45 }}
+        whileInView={{ opacity: 0.2, rotate: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute left-10 top-1/4"
+      >
+        <LeafyGreen className="w-20 h-20 text-primary/30" />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, rotate: 45 }}
+        whileInView={{ opacity: 0.2, rotate: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute right-10 bottom-1/4"
+      >
+        <Flower className="w-20 h-20 text-primary/30" />
+      </motion.div>
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
