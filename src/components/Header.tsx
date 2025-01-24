@@ -1,5 +1,4 @@
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
@@ -19,7 +18,7 @@ export const Header = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/#services" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                <Link to="/services" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Services
                 </Link>
               </NavigationMenuItem>
@@ -29,7 +28,7 @@ export const Header = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
+                <Link to="/contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors px-4 py-2">
                   Contact
                 </Link>
               </NavigationMenuItem>
