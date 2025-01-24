@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Admin from "./pages/Admin";
+import { Login } from "./pages/Login";
+import { Admin } from "./pages/Admin";
 import GalleryPage from "./pages/Gallery";
 
 function App() {
