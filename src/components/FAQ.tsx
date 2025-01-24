@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Flower } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Accordion,
   AccordionContent,
@@ -8,6 +10,22 @@ import {
 } from "@/components/ui/accordion";
 
 export const FAQ = () => {
+  const { data: faqImages } = useQuery({
+    queryKey: ['faq-images'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('hero_images')
+        .select('*')
+        .in('position', ['faq_main', 'faq_small']);
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  const mainImage = faqImages?.find(img => img.position === 'faq_main')?.url;
+  const smallImage = faqImages?.find(img => img.position === 'faq_small')?.url;
+
   return (
     <section className="py-24 px-4 bg-accent-beige relative overflow-hidden">
       {/* Decorative Elements */}
@@ -32,21 +50,25 @@ export const FAQ = () => {
         {/* Images Section */}
         <div className="relative w-full h-[600px] hidden lg:block">
           {/* Larger background image */}
-          <div className="absolute right-0 w-[80%] h-[80%] rounded-full overflow-hidden border-8 border-white/80">
-            <img
-              src="/lovable-uploads/44fca727-0676-4911-8db1-9cd5b2dfba42.png"
-              alt="Wedding couple"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {mainImage && (
+            <div className="absolute right-0 w-[80%] h-[80%] rounded-full overflow-hidden border-8 border-white/80">
+              <img
+                src={mainImage}
+                alt="Wedding couple"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
           {/* Smaller overlapping image */}
-          <div className="absolute left-0 top-[20%] w-[50%] h-[50%] rounded-full overflow-hidden border-8 border-white/80 z-10">
-            <img
-              src="/lovable-uploads/44fca727-0676-4911-8db1-9cd5b2dfba42.png"
-              alt="Bride with bouquet"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {smallImage && (
+            <div className="absolute left-0 top-[20%] w-[50%] h-[50%] rounded-full overflow-hidden border-8 border-white/80 z-10">
+              <img
+                src={smallImage}
+                alt="Bride with bouquet"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
         </div>
 
         {/* FAQ Content */}
