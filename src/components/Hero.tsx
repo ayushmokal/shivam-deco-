@@ -1,6 +1,22 @@
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Hero = () => {
+  const { data: featuredVideo } = useQuery({
+    queryKey: ['featured-video'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('gallery_videos')
+        .select('*')
+        .eq('featured', true)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-accent-beige">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12">
@@ -14,16 +30,32 @@ export const Hero = () => {
           }}
           className="md:w-1/2"
         >
-          <motion.img
-            src="/lovable-uploads/f157ecac-d5e9-4323-b345-bea9fbac20ff.png"
-            alt="Elegant Floral Decoration"
-            className="w-full h-auto rounded-lg shadow-xl"
-            whileHover={{ 
-              scale: 1.05,
-              rotateY: 5,
-              transition: { duration: 0.4 }
-            }}
-          />
+          {featuredVideo ? (
+            <motion.video
+              src={featuredVideo.url}
+              className="w-full h-auto rounded-lg shadow-xl"
+              autoPlay
+              muted
+              loop
+              playsInline
+              whileHover={{ 
+                scale: 1.05,
+                rotateY: 5,
+                transition: { duration: 0.4 }
+              }}
+            />
+          ) : (
+            <motion.img
+              src="/lovable-uploads/f157ecac-d5e9-4323-b345-bea9fbac20ff.png"
+              alt="Elegant Floral Decoration"
+              className="w-full h-auto rounded-lg shadow-xl"
+              whileHover={{ 
+                scale: 1.05,
+                rotateY: 5,
+                transition: { duration: 0.4 }
+              }}
+            />
+          )}
         </motion.div>
 
         <motion.div

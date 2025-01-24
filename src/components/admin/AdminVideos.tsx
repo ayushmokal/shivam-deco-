@@ -113,6 +113,31 @@ export const AdminVideos = () => {
     }
   };
 
+  const toggleFeatured = async (id: string, currentFeatured: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('gallery_videos')
+        .update({ featured: !currentFeatured })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: currentFeatured ? "Video unfeatured" : "Video set as featured",
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['gallery-videos'] });
+      queryClient.invalidateQueries({ queryKey: ['featured-video'] });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-8">
       <form onSubmit={handleVideoUpload} className="space-y-4 p-4 border rounded-lg">
@@ -159,13 +184,22 @@ export const AdminVideos = () => {
             />
             <h3 className="font-medium">{video.title}</h3>
             <p className="text-sm text-gray-500">{video.description}</p>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => handleDelete(video.id)}
-            >
-              Delete
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant={video.featured ? "default" : "outline"}
+                size="sm"
+                onClick={() => toggleFeatured(video.id, video.featured || false)}
+              >
+                {video.featured ? "Featured" : "Set as Featured"}
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => handleDelete(video.id)}
+              >
+                Delete
+              </Button>
+            </div>
           </div>
         ))}
       </div>
