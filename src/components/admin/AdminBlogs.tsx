@@ -7,6 +7,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+const sampleBlogs = [
+  {
+    title: "The Art of Wedding Photography",
+    content: "Capturing the perfect wedding moment requires more than just technical skill. It's about understanding the emotions, the timing, and the unique story of each couple. Our experienced photographers blend traditional techniques with modern creativity to create timeless memories that will last a lifetime.",
+    image_url: "https://kzeyhboppdnrkwyuhbbn.supabase.co/storage/v1/object/public/gallery/wedding-photography.jpg"
+  },
+  {
+    title: "Planning Your Dream Wedding",
+    content: "Every detail matters when planning your perfect day. From selecting the venue to choosing the right flowers, we guide you through each decision with expertise and care. Our team of wedding planners ensures that your vision becomes reality while keeping the process stress-free and enjoyable.",
+    image_url: "https://kzeyhboppdnrkwyuhbbn.supabase.co/storage/v1/object/public/gallery/dream-wedding.jpg"
+  },
+  {
+    title: "Wedding Decor Trends 2024",
+    content: "This year's wedding trends embrace both elegance and sustainability. From eco-friendly centerpieces to minimalist table settings, couples are choosing decor that reflects their values while creating stunning visual impact. Discover how to incorporate these trends into your special day.",
+    image_url: "https://kzeyhboppdnrkwyuhbbn.supabase.co/storage/v1/object/public/gallery/decor-trends.jpg"
+  }
+];
+
 export const AdminBlogs = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -80,6 +98,39 @@ export const AdminBlogs = () => {
     }
   };
 
+  const addRandomBlog = async () => {
+    try {
+      const { data: session } = await supabase.auth.getSession();
+      if (!session.session) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to create blog posts",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Add all sample blogs
+      for (const blog of sampleBlogs) {
+        const { error } = await supabase.from("blogs").insert(blog);
+        if (error) throw error;
+      }
+
+      toast({
+        title: "Success",
+        description: "Sample blog posts added successfully",
+      });
+      refetch();
+    } catch (error) {
+      console.error("Error adding sample blogs:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add sample blog posts",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (isLoading) {
     return <div>Loading blogs...</div>;
   }
@@ -96,6 +147,13 @@ export const AdminBlogs = () => {
 
   return (
     <div className="space-y-8">
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Blog Management</h3>
+        <Button onClick={addRandomBlog} variant="outline">
+          Add Sample Blogs
+        </Button>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           placeholder="Blog Title"
@@ -124,6 +182,13 @@ export const AdminBlogs = () => {
           <div key={blog.id} className="border p-4 rounded-lg">
             <h4 className="font-semibold">{blog.title}</h4>
             <p className="text-sm text-gray-600 mt-2">{blog.content.substring(0, 100)}...</p>
+            {blog.image_url && (
+              <img
+                src={blog.image_url}
+                alt={blog.title}
+                className="mt-2 w-full h-48 object-cover rounded"
+              />
+            )}
           </div>
         ))}
       </div>
