@@ -1,9 +1,14 @@
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
 
 export const Header = () => {
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className="w-full bg-accent-cream shadow-sm py-4">
       <div className="container mx-auto px-4">
@@ -27,76 +32,32 @@ export const Header = () => {
           >
             <NavigationMenu>
               <NavigationMenuList className="space-x-2">
-                <NavigationMenuItem>
-                  <Link 
-                    to="/" 
-                    className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 group"
-                  >
-                    <span className="relative z-10">Home</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-accent-beige rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                      initial={false}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link 
-                    to="/services" 
-                    className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 group"
-                  >
-                    <span className="relative z-10">Services</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-accent-beige rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                      initial={false}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link 
-                    to="/gallery" 
-                    className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 group"
-                  >
-                    <span className="relative z-10">Gallery</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-accent-beige rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                      initial={false}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link 
-                    to="/blog" 
-                    className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 group flex items-center"
-                  >
-                    <span className="relative z-10">Blog</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-accent-beige rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                      initial={false}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link 
-                    to="/contact" 
-                    className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 group"
-                  >
-                    <span className="relative z-10">Contact</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-accent-beige rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                      initial={false}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </NavigationMenuItem>
+                {[
+                  { path: "/", label: "Home" },
+                  { path: "/services", label: "Services" },
+                  { path: "/gallery", label: "Gallery" },
+                  { path: "/blog", label: "Blog" },
+                  { path: "/contact", label: "Contact" },
+                ].map((item) => (
+                  <NavigationMenuItem key={item.path}>
+                    <Link 
+                      to={item.path} 
+                      className={`relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full group ${
+                        isActive(item.path) ? 'bg-[#E8E1D9]' : ''
+                      }`}
+                    >
+                      <span className="relative z-10">{item.label}</span>
+                      {!isActive(item.path) && (
+                        <motion.div 
+                          className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 group-hover:opacity-100 -z-0"
+                          initial={false}
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
               </NavigationMenuList>
             </NavigationMenu>
           </motion.div>
