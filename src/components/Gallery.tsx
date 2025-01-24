@@ -68,12 +68,20 @@ export const Gallery = () => {
 
   const images = uploadedImages?.length ? uploadedImages : placeholderImages;
 
-  // Split images into five rows
-  const row1Images = [...images, ...images];
-  const row2Images = [...images, ...images];
-  const row3Images = [...images, ...images];
-  const row4Images = [...images, ...images];
-  const row5Images = [...images, ...images];
+  // Group images by row
+  const groupImagesByRow = (images: any[]) => {
+    const rows: { [key: number]: any[] } = {};
+    images.forEach((image) => {
+      const rowNumber = image.row_number || 1;
+      if (!rows[rowNumber]) {
+        rows[rowNumber] = [];
+      }
+      rows[rowNumber].push(image);
+    });
+    return rows;
+  };
+
+  const groupedImages = groupImagesByRow(images);
 
   return (
     <div className="py-16 bg-background overflow-hidden">
@@ -89,190 +97,43 @@ export const Gallery = () => {
         </motion.div>
 
         <div className="space-y-8">
-          {/* First row - Right to Left */}
-          <div className="relative flex overflow-hidden">
-            <motion.div
-              className="flex gap-4 animate-none"
-              animate={{
-                x: [0, -50 * row1Images.length],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ width: `${row1Images.length * 320}px` }}
-            >
-              {row1Images.map((image, index) => (
-                <div
-                  key={`${image.id}-${index}`}
-                  className="w-[300px] h-[300px] flex-shrink-0 relative group"
-                >
-                  <img
-                    src={image.url}
-                    alt={image.title || "Gallery image"}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                      {image.description && (
-                        <p className="text-sm text-gray-200">{image.description}</p>
-                      )}
+          {[1, 2, 3, 4, 5].map((rowNumber) => (
+            <div key={rowNumber} className="relative flex overflow-hidden">
+              <motion.div
+                className="flex gap-4 animate-none"
+                animate={{
+                  x: rowNumber % 2 === 0 ? [-50 * (groupedImages[rowNumber]?.length || 8), 0] : [0, -50 * (groupedImages[rowNumber]?.length || 8)],
+                }}
+                transition={{
+                  duration: 50,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ width: `${(groupedImages[rowNumber]?.length || 8) * 320}px` }}
+              >
+                {(groupedImages[rowNumber] || []).map((image: any, index: number) => (
+                  <div
+                    key={`${image.id}-${index}`}
+                    className="w-[300px] h-[300px] flex-shrink-0 relative group"
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.title || "Gallery image"}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
+                      <div className="p-4 text-white">
+                        <h3 className="text-lg font-semibold">{image.title}</h3>
+                        {image.description && (
+                          <p className="text-sm text-gray-200">{image.description}</p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Second row - Left to Right */}
-          <div className="relative flex overflow-hidden">
-            <motion.div
-              className="flex gap-4 animate-none"
-              animate={{
-                x: [-50 * row2Images.length, 0],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ width: `${row2Images.length * 320}px` }}
-            >
-              {row2Images.map((image, index) => (
-                <div
-                  key={`${image.id}-${index}`}
-                  className="w-[300px] h-[300px] flex-shrink-0 relative group"
-                >
-                  <img
-                    src={image.url}
-                    alt={image.title || "Gallery image"}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                      {image.description && (
-                        <p className="text-sm text-gray-200">{image.description}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Third row - Right to Left */}
-          <div className="relative flex overflow-hidden">
-            <motion.div
-              className="flex gap-4 animate-none"
-              animate={{
-                x: [0, -50 * row3Images.length],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ width: `${row3Images.length * 320}px` }}
-            >
-              {row3Images.map((image, index) => (
-                <div
-                  key={`${image.id}-${index}`}
-                  className="w-[300px] h-[300px] flex-shrink-0 relative group"
-                >
-                  <img
-                    src={image.url}
-                    alt={image.title || "Gallery image"}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                      {image.description && (
-                        <p className="text-sm text-gray-200">{image.description}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Fourth row - Left to Right */}
-          <div className="relative flex overflow-hidden">
-            <motion.div
-              className="flex gap-4 animate-none"
-              animate={{
-                x: [-50 * row4Images.length, 0],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ width: `${row4Images.length * 320}px` }}
-            >
-              {row4Images.map((image, index) => (
-                <div
-                  key={`${image.id}-${index}`}
-                  className="w-[300px] h-[300px] flex-shrink-0 relative group"
-                >
-                  <img
-                    src={image.url}
-                    alt={image.title || "Gallery image"}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                      {image.description && (
-                        <p className="text-sm text-gray-200">{image.description}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Fifth row - Right to Left */}
-          <div className="relative flex overflow-hidden">
-            <motion.div
-              className="flex gap-4 animate-none"
-              animate={{
-                x: [0, -50 * row5Images.length],
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ width: `${row5Images.length * 320}px` }}
-            >
-              {row5Images.map((image, index) => (
-                <div
-                  key={`${image.id}-${index}`}
-                  className="w-[300px] h-[300px] flex-shrink-0 relative group"
-                >
-                  <img
-                    src={image.url}
-                    alt={image.title || "Gallery image"}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end rounded-lg">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                      {image.description && (
-                        <p className="text-sm text-gray-200">{image.description}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+                ))}
+              </motion.div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
