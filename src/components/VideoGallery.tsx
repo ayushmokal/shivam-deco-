@@ -53,11 +53,12 @@ export const VideoGallery = () => {
               className="aspect-[9/16] w-full"
             >
               <iframe
-                src="https://www.instagram.com/reel/DFAOVeBMjBd/embed"
+                src="https://www.instagram.com/reel/DFAOVeBMjBd/embed?autoplay=1"
                 className="w-full h-full rounded-lg shadow-lg"
                 frameBorder="0"
                 scrolling="no"
                 allowFullScreen
+                allow="autoplay"
               />
             </motion.div>
             <motion.div
@@ -67,11 +68,12 @@ export const VideoGallery = () => {
               className="aspect-[9/16] w-full"
             >
               <iframe
-                src="https://www.instagram.com/reel/DESb_Ugs9aP/embed"
+                src="https://www.instagram.com/reel/DESb_Ugs9aP/embed?autoplay=1"
                 className="w-full h-full rounded-lg shadow-lg"
                 frameBorder="0"
                 scrolling="no"
                 allowFullScreen
+                allow="autoplay"
               />
             </motion.div>
           </div>
