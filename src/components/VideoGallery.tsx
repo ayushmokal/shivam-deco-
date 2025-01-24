@@ -55,7 +55,7 @@ export const VideoGallery = () => {
 
   return (
     <div className="py-16 bg-background">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ export const VideoGallery = () => {
           <p className="text-muted-foreground">Explore our beautiful decorations</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-8">
           {videos.map((video, index) => (
             <motion.div
               key={video.id}
@@ -74,7 +74,7 @@ export const VideoGallery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 * index }}
               className="relative w-full"
-              style={{ paddingBottom: "140%" }}
+              style={{ paddingBottom: "177.78%" }}
             >
               <div className="absolute inset-0 rounded-[3rem] overflow-hidden" style={{ borderRadius: '3rem 3rem 3rem 3rem' }}>
                 <video
