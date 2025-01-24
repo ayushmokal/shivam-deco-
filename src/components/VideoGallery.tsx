@@ -38,12 +38,14 @@ export const VideoGallery = () => {
       }
       return data || [];
     },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
     }
   });
 
@@ -72,7 +74,7 @@ export const VideoGallery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 * index }}
               className="relative w-full"
-              style={{ paddingBottom: "177.78%" }} // Changed from 56.25% (16:9) to 177.78% (9:16)
+              style={{ paddingBottom: "177.78%" }}
             >
               <video
                 src={video.url}
