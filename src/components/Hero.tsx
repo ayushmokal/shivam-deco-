@@ -39,13 +39,13 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Hi There
+            We create
             <br />
-            This is
+            <span className="text-primary">Beautiful</span>
             <br />
-            <span className="text-primary">— Sanches</span>
+            moments for
             <br />
-            Liza
+            you
           </motion.h1>
           
           <motion.p 
@@ -58,7 +58,7 @@ export const Hero = () => {
           </motion.p>
           
           <motion.button 
-            className="bg-[#8B2635] hover:bg-[#7A1F2D] text-white px-8 py-3 rounded-md transition-all font-sans text-base"
+            className="bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-md transition-all font-sans text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
