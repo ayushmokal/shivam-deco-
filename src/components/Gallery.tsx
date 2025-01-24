@@ -2,8 +2,59 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+const placeholderImages = [
+  {
+    id: "1",
+    url: "https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?w=800&auto=format&fit=crop",
+    title: "Wedding Decoration",
+    description: "Elegant floral arrangement"
+  },
+  {
+    id: "2", 
+    url: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop",
+    title: "Traditional Setup",
+    description: "Beautiful traditional wedding setup"
+  },
+  {
+    id: "3",
+    url: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop",
+    title: "Wedding Stage",
+    description: "Luxurious stage decoration"
+  },
+  {
+    id: "4",
+    url: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&auto=format&fit=crop",
+    title: "Reception Area",
+    description: "Elegant reception decoration"
+  },
+  {
+    id: "5",
+    url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&auto=format&fit=crop",
+    title: "Table Setting",
+    description: "Sophisticated dining arrangement"
+  },
+  {
+    id: "6",
+    url: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop",
+    title: "Outdoor Setup",
+    description: "Beautiful garden decoration"
+  },
+  {
+    id: "7",
+    url: "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=800&auto=format&fit=crop",
+    title: "Wedding Entrance",
+    description: "Grand entrance decoration"
+  },
+  {
+    id: "8",
+    url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&auto=format&fit=crop",
+    title: "Floral Design",
+    description: "Stunning floral arrangements"
+  }
+];
+
 export const Gallery = () => {
-  const { data: images } = useQuery({
+  const { data: uploadedImages } = useQuery({
     queryKey: ["gallery_images"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -14,6 +65,8 @@ export const Gallery = () => {
       return data;
     },
   });
+
+  const images = uploadedImages?.length ? uploadedImages : placeholderImages;
 
   return (
     <div className="py-16 bg-background">
