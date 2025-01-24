@@ -31,14 +31,16 @@ export const FAQ = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Images Section */}
         <div className="relative w-full h-[600px] hidden lg:block">
-          <div className="absolute left-0 top-0 w-[45%] h-[45%] rounded-full overflow-hidden border-8 border-white/80">
+          {/* Larger background image */}
+          <div className="absolute right-0 w-[80%] h-[80%] rounded-full overflow-hidden border-8 border-white/80">
             <img
               src="/lovable-uploads/44fca727-0676-4911-8db1-9cd5b2dfba42.png"
               alt="Wedding couple"
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="absolute right-0 bottom-0 w-[65%] h-[65%] rounded-full overflow-hidden border-8 border-white/80">
+          {/* Smaller overlapping image */}
+          <div className="absolute left-0 top-[20%] w-[50%] h-[50%] rounded-full overflow-hidden border-8 border-white/80 z-10">
             <img
               src="/lovable-uploads/44fca727-0676-4911-8db1-9cd5b2dfba42.png"
               alt="Bride with bouquet"
