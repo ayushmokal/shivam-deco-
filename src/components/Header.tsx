@@ -5,6 +5,10 @@ import { motion } from "framer-motion";
 export const Header = () => {
   const location = useLocation();
 
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className="w-full bg-accent-cream shadow-sm py-4">
       <div className="container mx-auto px-4">
@@ -38,15 +42,19 @@ export const Header = () => {
                   <NavigationMenuItem key={item.path}>
                     <Link 
                       to={item.path} 
-                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full group"
+                      className={`relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full group ${
+                        isActive(item.path) ? 'bg-[#E8E1D9]' : ''
+                      }`}
                     >
                       <span className="relative z-10">{item.label}</span>
-                      <motion.div 
-                        className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 group-hover:opacity-100 -z-0"
-                        initial={false}
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                      />
+                      {!isActive(item.path) && (
+                        <motion.div 
+                          className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 group-hover:opacity-100 -z-0"
+                          initial={false}
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
                     </Link>
                   </NavigationMenuItem>
                 ))}
