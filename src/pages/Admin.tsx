@@ -7,6 +7,7 @@ import { AdminBlogs } from "@/components/admin/AdminBlogs";
 import { AdminGallery } from "@/components/admin/AdminGallery";
 import { AdminEnquiries } from "@/components/admin/AdminEnquiries";
 import { AdminVideos } from "@/components/admin/AdminVideos";
+import { AdminHeroImages } from "@/components/admin/AdminHeroImages";
 
 export const Admin = () => {
   const navigate = useNavigate();
@@ -34,11 +35,12 @@ export const Admin = () => {
       </div>
 
       <Tabs defaultValue="blogs" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="blogs">Blogs</TabsTrigger>
           <TabsTrigger value="gallery">Gallery</TabsTrigger>
           <TabsTrigger value="videos">Videos</TabsTrigger>
           <TabsTrigger value="enquiries">Enquiries</TabsTrigger>
+          <TabsTrigger value="hero">Hero Images</TabsTrigger>
         </TabsList>
         <TabsContent value="blogs">
           <AdminBlogs />
@@ -51,6 +53,9 @@ export const Admin = () => {
         </TabsContent>
         <TabsContent value="enquiries">
           <AdminEnquiries />
+        </TabsContent>
+        <TabsContent value="hero">
+          <AdminHeroImages />
         </TabsContent>
       </Tabs>
     </div>
