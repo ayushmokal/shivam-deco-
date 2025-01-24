@@ -71,16 +71,17 @@ export const AdminBlogs = () => {
     const fileName = `${Math.random()}.${fileExt}`;
 
     try {
-      const { error: uploadError, data } = await Promise.race([
-        supabase.storage
-          .from("gallery")
-          .upload(fileName, file),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error("Upload timed out")), UPLOAD_TIMEOUT)
-        )
-      ]);
+      const uploadPromise = supabase.storage
+        .from("gallery")
+        .upload(fileName, file);
 
-      if (uploadError) throw uploadError;
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error("Upload timed out")), UPLOAD_TIMEOUT)
+      );
+
+      const result = await Promise.race([uploadPromise, timeoutPromise]);
+      
+      if ('error' in result && result.error) throw result.error;
 
       return supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl;
     } catch (error) {
