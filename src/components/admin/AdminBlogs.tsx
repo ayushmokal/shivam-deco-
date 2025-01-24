@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { Pencil } from "lucide-react";
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const UPLOAD_TIMEOUT = 30000; // 30 seconds
+
 const sampleBlogs = [
   {
     title: "The Art of Wedding Photography",
@@ -38,6 +41,7 @@ export const AdminBlogs = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [editingBlog, setEditingBlog] = useState<any>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const { toast } = useToast();
 
   const { data: blogs, refetch, isLoading, error } = useQuery({
@@ -58,8 +62,36 @@ export const AdminBlogs = () => {
     },
   });
 
+  const uploadImage = async (file: File): Promise<string | null> => {
+    if (file.size > MAX_FILE_SIZE) {
+      throw new Error("File size must be less than 5MB");
+    }
+
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT);
+
+    try {
+      const { error: uploadError, data } = await supabase.storage
+        .from("gallery")
+        .upload(fileName, file, {
+          abortSignal: controller.signal,
+        });
+
+      if (uploadError) throw uploadError;
+
+      return supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl;
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsUploading(true);
+
     try {
       const { data: session } = await supabase.auth.getSession();
       if (!session.session) {
@@ -73,13 +105,16 @@ export const AdminBlogs = () => {
 
       let imageUrl = null;
       if (image) {
-        const fileExt = image.name.split(".").pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from("gallery")
-          .upload(fileName, image);
-        if (uploadError) throw uploadError;
-        imageUrl = `${supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl}`;
+        try {
+          imageUrl = await uploadImage(image);
+        } catch (error) {
+          toast({
+            title: "Error",
+            description: error instanceof Error ? error.message : "Failed to upload image",
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
       const { error } = await supabase.from("blogs").insert({
@@ -87,6 +122,7 @@ export const AdminBlogs = () => {
         content,
         image_url: imageUrl,
       });
+
       if (error) throw error;
 
       toast({
@@ -104,11 +140,15 @@ export const AdminBlogs = () => {
         description: "Failed to create blog post",
         variant: "destructive",
       });
+    } finally {
+      setIsUploading(false);
     }
   };
 
   const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsUploading(true);
+
     try {
       const { data: session } = await supabase.auth.getSession();
       if (!session.session) {
@@ -122,13 +162,16 @@ export const AdminBlogs = () => {
 
       let imageUrl = editingBlog.image_url;
       if (image) {
-        const fileExt = image.name.split(".").pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from("gallery")
-          .upload(fileName, image);
-        if (uploadError) throw uploadError;
-        imageUrl = `${supabase.storage.from("gallery").getPublicUrl(fileName).data.publicUrl}`;
+        try {
+          imageUrl = await uploadImage(image);
+        } catch (error) {
+          toast({
+            title: "Error",
+            description: error instanceof Error ? error.message : "Failed to upload image",
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
       const { error } = await supabase
@@ -156,6 +199,8 @@ export const AdminBlogs = () => {
         description: "Failed to update blog post",
         variant: "destructive",
       });
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -210,7 +255,7 @@ export const AdminBlogs = () => {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold">Blog Management</h3>
-        <Button onClick={addRandomBlog} variant="outline">
+        <Button onClick={addRandomBlog} variant="outline" disabled={isUploading}>
           Add Sample Blogs
         </Button>
       </div>
@@ -221,6 +266,7 @@ export const AdminBlogs = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          disabled={isUploading}
         />
         <Textarea
           placeholder="Blog Content"
@@ -228,13 +274,29 @@ export const AdminBlogs = () => {
           onChange={(e) => setContent(e.target.value)}
           required
           className="min-h-[200px]"
+          disabled={isUploading}
         />
         <Input
           type="file"
           accept="image/*"
-          onChange={(e) => setImage(e.target.files?.[0] || null)}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file && file.size > MAX_FILE_SIZE) {
+              toast({
+                title: "Error",
+                description: "File size must be less than 5MB",
+                variant: "destructive",
+              });
+              e.target.value = '';
+              return;
+            }
+            setImage(file || null);
+          }}
+          disabled={isUploading}
         />
-        <Button type="submit">Create Blog Post</Button>
+        <Button type="submit" disabled={isUploading}>
+          {isUploading ? "Creating..." : "Create Blog Post"}
+        </Button>
       </form>
 
       <div className="space-y-4">
@@ -249,6 +311,7 @@ export const AdminBlogs = () => {
                     variant="outline"
                     size="icon"
                     onClick={() => setEditingBlog(blog)}
+                    disabled={isUploading}
                   >
                     <Pencil className="h-4 w-4" />
                   </Button>
@@ -265,6 +328,7 @@ export const AdminBlogs = () => {
                         setEditingBlog({ ...editingBlog, title: e.target.value })
                       }
                       required
+                      disabled={isUploading}
                     />
                     <Textarea
                       placeholder="Blog Content"
@@ -274,11 +338,25 @@ export const AdminBlogs = () => {
                       }
                       required
                       className="min-h-[200px]"
+                      disabled={isUploading}
                     />
                     <Input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => setImage(e.target.files?.[0] || null)}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file && file.size > MAX_FILE_SIZE) {
+                          toast({
+                            title: "Error",
+                            description: "File size must be less than 5MB",
+                            variant: "destructive",
+                          });
+                          e.target.value = '';
+                          return;
+                        }
+                        setImage(file || null);
+                      }}
+                      disabled={isUploading}
                     />
                     {blog.image_url && (
                       <img
@@ -287,7 +365,9 @@ export const AdminBlogs = () => {
                         className="w-full h-32 object-cover rounded"
                       />
                     )}
-                    <Button type="submit">Update Blog Post</Button>
+                    <Button type="submit" disabled={isUploading}>
+                      {isUploading ? "Updating..." : "Update Blog Post"}
+                    </Button>
                   </form>
                 </DialogContent>
               </Dialog>
