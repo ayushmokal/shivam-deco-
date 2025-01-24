@@ -40,7 +40,7 @@ export const VideoGallery = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 * index }}
               className="relative w-full"
-              style={{ paddingBottom: "56.25%" }}
+              style={{ paddingBottom: "177.78%" }} // Changed from 56.25% (16:9) to 177.78% (9:16)
             >
               <video
                 src={video.url}
