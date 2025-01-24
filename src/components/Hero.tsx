@@ -81,28 +81,28 @@ export const Hero = () => {
           <motion.img
             src="/lovable-uploads/b3583dfe-0c23-4e22-9c1d-ea62930d80e2.png"
             alt="Floral Designer with Bouquet"
-            className="absolute right-0 top-0 w-[80%] h-auto rounded-lg shadow-xl z-20"
+            className="absolute right-0 top-0 w-[90%] h-auto rounded-lg shadow-xl z-10"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           />
           
-          {/* Bottom right smaller image */}
+          {/* Left overlapping smaller image */}
           <motion.img
-            src="/lovable-uploads/f157ecac-d5e9-4323-b345-bea9fbac20ff.png"
-            alt="Wedding Venue Setup"
-            className="absolute right-0 bottom-0 w-[40%] h-auto rounded-lg shadow-xl z-10"
-            initial={{ opacity: 0, x: 50 }}
+            src="/lovable-uploads/05fcc621-3fab-4bbb-93e1-d2b89c58ac7e.png"
+            alt="Floral Decoration"
+            className="absolute left-0 top-[30%] w-[35%] h-auto rounded-lg shadow-xl z-20"
+            initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           />
           
-          {/* Bottom left decorative image */}
+          {/* Right overlapping medium image */}
           <motion.img
-            src="/lovable-uploads/05fcc621-3fab-4bbb-93e1-d2b89c58ac7e.png"
-            alt="Floral Decoration"
-            className="absolute left-0 bottom-20 w-[35%] h-auto rounded-lg shadow-xl z-30"
-            initial={{ opacity: 0, x: -50 }}
+            src="/lovable-uploads/f157ecac-d5e9-4323-b345-bea9fbac20ff.png"
+            alt="Wedding Venue Setup"
+            className="absolute right-0 bottom-[10%] w-[45%] h-auto rounded-lg shadow-xl z-30"
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           />
