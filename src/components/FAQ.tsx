@@ -47,10 +47,10 @@ export const FAQ = () => {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Images Section */}
-        <div className="relative w-full h-[600px] hidden lg:block">
+        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] block">
           {/* Larger background image */}
           {mainImage && (
-            <div className="absolute right-0 w-[80%] h-[80%] rounded-full overflow-hidden border-8 border-white/80">
+            <div className="absolute right-0 w-[80%] h-[70%] md:h-[80%] rounded-full overflow-hidden border-8 border-white/80">
               <img
                 src={mainImage}
                 alt="Wedding couple"
@@ -60,7 +60,7 @@ export const FAQ = () => {
           )}
           {/* Smaller overlapping image */}
           {smallImage && (
-            <div className="absolute left-0 top-[20%] w-[50%] h-[50%] rounded-full overflow-hidden border-8 border-white/80 z-10">
+            <div className="absolute left-0 top-[20%] w-[50%] h-[40%] md:h-[50%] rounded-full overflow-hidden border-8 border-white/80 z-10">
               <img
                 src={smallImage}
                 alt="Bride with bouquet"
