@@ -7,8 +7,25 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Stats } from "../components/Stats";
 import { FAQ } from "../components/FAQ";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      // Only redirect to admin if we're already logged in and explicitly navigating to /admin
+      if (session && window.location.pathname === "/admin") {
+        navigate("/admin");
+      }
+    };
+    
+    checkAuth();
+  }, [navigate]);
+
   return (
     <>
       <Header />
