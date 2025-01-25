@@ -105,7 +105,7 @@ export const Hero = () => {
             <motion.img
               src={mainImage}
               alt="Floral Designer with Bouquet"
-              className="absolute right-0 top-0 w-[90%] h-auto rounded-lg shadow-xl z-10 object-cover"
+              className="absolute right-0 top-0 w-[80%] sm:w-[90%] h-[300px] md:h-auto rounded-lg shadow-xl z-10 object-cover"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -117,7 +117,7 @@ export const Hero = () => {
             <motion.img
               src={leftImage}
               alt="Floral Decoration"
-              className="absolute left-0 top-[30%] w-[35%] h-auto rounded-lg shadow-xl z-20 hidden md:block"
+              className="absolute left-0 top-[40%] w-[35%] h-[150px] md:h-auto rounded-lg shadow-xl z-20 object-cover"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -129,7 +129,7 @@ export const Hero = () => {
             <motion.img
               src={rightImage}
               alt="Wedding Venue Setup"
-              className="absolute right-0 bottom-[10%] w-[45%] h-auto rounded-lg shadow-xl z-30 hidden md:block"
+              className="absolute right-0 bottom-[5%] w-[45%] h-[150px] md:h-auto rounded-lg shadow-xl z-30 object-cover"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
