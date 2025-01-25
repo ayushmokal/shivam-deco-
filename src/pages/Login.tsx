@@ -15,14 +15,15 @@ export const Login = () => {
         // Only redirect to admin if we came from the admin route
         if (from === "/admin") {
           navigate("/admin");
-        } else {
+        } else if (location.pathname === "/login") {
+          // Only redirect to home if we're actually on the login page
           navigate("/");
         }
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, from]);
+  }, [navigate, from, location.pathname]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
