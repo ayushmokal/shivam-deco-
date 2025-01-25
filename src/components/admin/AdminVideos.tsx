@@ -28,6 +28,14 @@ export const AdminVideos = () => {
     }
   });
 
+  const sanitizeFileName = (fileName: string) => {
+    // Remove special characters and spaces, replace with hyphens
+    return fileName
+      .replace(/[#?]/g, '')
+      .replace(/\s+/g, '-')
+      .toLowerCase();
+  };
+
   const handleVideoUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -48,7 +56,8 @@ export const AdminVideos = () => {
     try {
       setUploading(true);
       const fileExt = videoFile.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const sanitizedName = sanitizeFileName(videoFile.name);
+      const fileName = `${Math.random()}-${sanitizedName}`;
       const filePath = `${fileName}`;
 
       const { error: uploadError, data } = await supabase.storage
