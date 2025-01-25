@@ -1,7 +1,7 @@
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export const Header = () => {
@@ -13,13 +13,13 @@ export const Header = () => {
   };
 
   return (
-    <header className="w-full bg-accent-cream shadow-sm py-4">
+    <header className="fixed top-0 left-0 right-0 w-full bg-white/80 backdrop-blur-sm z-50 shadow-sm">
       <div className="container mx-auto px-4">
-        <nav className="flex flex-col items-center justify-center space-y-4">
-          <div className="w-full flex items-center justify-between md:justify-center">
-            <Link to="/" className="flex items-center">
+        <nav className="flex flex-col items-center justify-center">
+          <div className="w-full flex items-center justify-between py-4">
+            <Link to="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
               <motion.h1 
-                className="text-xl md:text-2xl font-serif text-primary hover:text-primary-dark transition-colors"
+                className="text-xl md:text-2xl font-serif text-[#8B4513] hover:text-[#6B3410] transition-colors"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -28,47 +28,52 @@ export const Header = () => {
               </motion.h1>
             </Link>
             <button 
-              className="md:hidden text-primary p-2 hover:bg-secondary/20 rounded-full transition-colors"
+              className="md:hidden text-[#8B4513] p-2 hover:bg-[#8B4513]/10 rounded-full transition-colors"
               onClick={toggleMenu}
+              aria-label="Toggle menu"
             >
-              <Menu size={24} />
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
           
-          <motion.div 
-            className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex w-full md:w-auto bg-white/80 backdrop-blur-sm rounded-full px-4 md:px-8 py-2 shadow-md border border-secondary/20`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <NavigationMenu>
-              <NavigationMenuList className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-                {[
-                  { path: "/", label: "Home" },
-                  { path: "/services", label: "Services" },
-                  { path: "/gallery", label: "Gallery" },
-                  { path: "/blog", label: "Blog" },
-                  { path: "/contact", label: "Contact" },
-                ].map((item) => (
-                  <NavigationMenuItem key={item.path}>
-                    <Link 
-                      to={item.path} 
-                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full block"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className="relative z-10">{item.label}</span>
-                      <motion.div 
-                        className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 hover:opacity-100 transition-opacity"
-                        initial={false}
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                      />
-                    </Link>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
-          </motion.div>
+          <AnimatePresence>
+            {(isMenuOpen || !window.matchMedia('(max-width: 768px)').matches) && (
+              <motion.div 
+                className="w-full md:w-auto bg-white md:bg-transparent"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <NavigationMenu className="w-full">
+                  <NavigationMenuList className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 w-full md:w-auto p-4 md:p-0">
+                    {[
+                      { path: "/", label: "Home" },
+                      { path: "/services", label: "Services" },
+                      { path: "/gallery", label: "Gallery" },
+                      { path: "/blog", label: "Blog" },
+                      { path: "/contact", label: "Contact" },
+                    ].map((item) => (
+                      <NavigationMenuItem key={item.path} className="w-full md:w-auto">
+                        <Link 
+                          to={item.path} 
+                          className={`
+                            relative w-full md:w-auto text-center text-base font-medium 
+                            ${location.pathname === item.path ? 'text-[#8B4513]' : 'text-gray-600'} 
+                            hover:text-[#8B4513] transition-colors px-4 py-2 rounded-full block
+                            hover:bg-[#8B4513]/10
+                          `}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      </NavigationMenuItem>
+                    ))}
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
       </div>
     </header>
