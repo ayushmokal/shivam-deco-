@@ -16,7 +16,10 @@ export const VideoGallery = () => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT' || !session) {
-        navigate('/login');
+        // Only redirect if we're on an admin page
+        if (window.location.pathname.startsWith('/admin')) {
+          navigate('/admin');
+        }
       }
     });
 
@@ -33,7 +36,10 @@ export const VideoGallery = () => {
       
       if (error) {
         if (error.message.includes('refresh_token_not_found')) {
-          navigate('/login');
+          // Only redirect if we're on an admin page
+          if (window.location.pathname.startsWith('/admin')) {
+            navigate('/admin');
+          }
         }
         throw error;
       }
