@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Login } from "./Login";
-import AdminBlogs from "../components/admin/AdminBlogs";
-import AdminEnquiries from "../components/admin/AdminEnquiries";
-import AdminGallery from "../components/admin/AdminGallery";
-import AdminHeroImages from "../components/admin/AdminHeroImages";
-import AdminVideos from "../components/admin/AdminVideos";
+import { AdminBlogs } from "../components/admin/AdminBlogs";
+import { AdminEnquiries } from "../components/admin/AdminEnquiries";
+import { AdminGallery } from "../components/admin/AdminGallery";
+import { AdminHeroImages } from "../components/admin/AdminHeroImages";
+import { AdminVideos } from "../components/admin/AdminVideos";
 
 export const Admin = () => {
   const [session, setSession] = useState(null);
