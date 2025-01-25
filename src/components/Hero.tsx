@@ -61,7 +61,22 @@ export const Hero = () => {
           >
             We create
             <br />
-            <span className="text-primary">Beautiful</span>
+            <motion.span 
+              className="text-primary"
+              initial={{ scale: 1 }}
+              animate={{ 
+                scale: [1, 1.1, 1],
+                color: ["#8B7355", "#A89078", "#8B7355"]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+            >
+              Beautiful
+            </motion.span>
             <br />
             moments for
             <br />
