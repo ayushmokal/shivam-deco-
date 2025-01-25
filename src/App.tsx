@@ -12,7 +12,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/services" element={<ServicePage />} />
