@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Trash2 } from "lucide-react";
 
 export const AdminGallery = () => {
   const [title, setTitle] = useState("");
@@ -69,6 +70,39 @@ export const AdminGallery = () => {
     }
   };
 
+  const handleDelete = async (imageUrl: string, id: string) => {
+    try {
+      // Extract filename from URL
+      const fileName = imageUrl.split("/").pop();
+      if (!fileName) throw new Error("Invalid image URL");
+
+      // Delete from storage
+      const { error: storageError } = await supabase.storage
+        .from("gallery")
+        .remove([fileName]);
+      if (storageError) throw storageError;
+
+      // Delete from database
+      const { error: dbError } = await supabase
+        .from("gallery_images")
+        .delete()
+        .eq("id", id);
+      if (dbError) throw dbError;
+
+      toast({
+        title: "Success",
+        description: "Image deleted successfully",
+      });
+      refetch();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete image",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-8">
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -93,10 +127,18 @@ export const AdminGallery = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images?.map((image) => (
-          <div key={image.id} className="border rounded-lg p-4">
+          <div key={image.id} className="border rounded-lg p-4 relative group">
             <img src={image.url} alt={image.title || ""} className="w-full h-48 object-cover rounded" />
             <h4 className="font-semibold mt-2">{image.title}</h4>
             <p className="text-sm text-gray-600">{image.description}</p>
+            <Button
+              variant="destructive"
+              size="icon"
+              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={() => handleDelete(image.url, image.id)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </div>
         ))}
       </div>
