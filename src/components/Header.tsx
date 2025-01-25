@@ -53,12 +53,12 @@ export const Header = () => {
                   <NavigationMenuItem key={item.path}>
                     <Link 
                       to={item.path} 
-                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full block group"
+                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full block"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span className="relative z-10">{item.label}</span>
                       <motion.div 
-                        className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 group-hover:opacity-100 -z-0"
+                        className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 hover:opacity-100 transition-opacity"
                         initial={false}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
