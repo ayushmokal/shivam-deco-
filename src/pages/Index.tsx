@@ -7,12 +7,10 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Stats } from "../components/Stats";
 import { FAQ } from "../components/FAQ";
-import { AnimatedBackground } from "../components/AnimatedBackground";
 
 const Index = () => {
   return (
     <>
-      <AnimatedBackground />
       <Header />
       <motion.div
         initial={{ opacity: 0 }}
