@@ -27,7 +27,7 @@ export const FAQ = () => {
   const smallImage = faqImages?.find(img => img.position === 'faq_small')?.url;
 
   return (
-    <section className="py-12 md:py-24 px-4 bg-accent-cream relative overflow-hidden">
+    <section className="py-24 px-4 bg-accent-cream relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 0.2, scale: 1 }}
@@ -45,9 +45,9 @@ export const FAQ = () => {
         <Flower className="w-16 h-16 text-[#836C50]/30" />
       </motion.div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Images Section */}
-        <div className="relative w-full h-[300px] md:h-[500px] lg:h-[600px] block mb-6 lg:mb-0">
+        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] block">
           {/* Larger background image */}
           {mainImage && (
             <div className="absolute right-0 w-[80%] h-[70%] md:h-[80%] rounded-full overflow-hidden border-8 border-white/80">
@@ -71,7 +71,7 @@ export const FAQ = () => {
         </div>
 
         {/* FAQ Content */}
-        <div className="space-y-6 lg:space-y-8">
+        <div className="space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ export const FAQ = () => {
             </p>
           </motion.div>
 
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border rounded-lg bg-white px-4">
               <AccordionTrigger className="hover:no-underline">
                 <span className="flex items-center gap-2 text-left">
