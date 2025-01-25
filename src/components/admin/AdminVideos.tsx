@@ -29,10 +29,10 @@ export const AdminVideos = () => {
   });
 
   const sanitizeFileName = (fileName: string) => {
-    // Remove special characters and spaces, replace with hyphens
+    // Remove special characters (including # and ?), emojis, and spaces
     return fileName
-      .replace(/[#?]/g, '')
-      .replace(/\s+/g, '-')
+      .replace(/[^\w\s.-]/g, '')  // Remove all non-word chars except dots and hyphens
+      .replace(/\s+/g, '-')       // Replace spaces with hyphens
       .toLowerCase();
   };
 
@@ -57,7 +57,7 @@ export const AdminVideos = () => {
       setUploading(true);
       const fileExt = videoFile.name.split('.').pop();
       const sanitizedName = sanitizeFileName(videoFile.name);
-      const fileName = `${Math.random()}-${sanitizedName}`;
+      const fileName = `${Date.now()}-${sanitizedName}`;
       const filePath = `${fileName}`;
 
       const { error: uploadError, data } = await supabase.storage
@@ -74,7 +74,7 @@ export const AdminVideos = () => {
         .from('gallery_videos')
         .insert({
           url: videoUrl.publicUrl,
-          title,
+          title: title || sanitizedName,
           description,
         });
 

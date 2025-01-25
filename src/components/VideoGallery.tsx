@@ -103,15 +103,17 @@ export const VideoGallery = () => {
               style={{ paddingBottom: "177.78%" }}
             >
               <div className="absolute inset-0 rounded-[3rem] overflow-hidden" style={{ borderRadius: '3rem 3rem 3rem 3rem' }}>
-                <video
-                  src={video.url}
-                  className="absolute top-0 left-0 w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                />
+                {video.url && (
+                  <video
+                    src={video.url}
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                  />
+                )}
               </div>
             </motion.div>
           ))}
