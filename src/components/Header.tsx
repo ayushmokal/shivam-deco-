@@ -28,7 +28,7 @@ export const Header = () => {
               </motion.h1>
             </Link>
             <button 
-              className="md:hidden text-primary p-2 hover:bg-secondary/20 rounded-full transition-colors"
+              className="md:hidden text-primary p-2 hover:bg-secondary/20 rounded-lg transition-colors"
               onClick={toggleMenu}
             >
               <Menu size={24} />
@@ -36,7 +36,7 @@ export const Header = () => {
           </div>
           
           <motion.div 
-            className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex w-full md:w-auto bg-white/80 backdrop-blur-sm rounded-full px-4 md:px-8 py-2 shadow-md border border-secondary/20`}
+            className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex w-full md:w-auto bg-white/80 backdrop-blur-sm md:rounded-full px-4 md:px-8 py-2 shadow-md border border-secondary/20`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -53,12 +53,12 @@ export const Header = () => {
                   <NavigationMenuItem key={item.path}>
                     <Link 
                       to={item.path} 
-                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 rounded-full block"
+                      className="relative text-sm font-medium text-primary hover:text-primary-dark transition-colors px-4 py-2 md:rounded-full block"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span className="relative z-10">{item.label}</span>
                       <motion.div 
-                        className="absolute inset-0 bg-[#E8E1D9] rounded-full opacity-0 hover:opacity-100 transition-opacity"
+                        className="absolute inset-0 bg-[#E8E1D9] md:rounded-full opacity-0 hover:opacity-100 transition-opacity"
                         initial={false}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
