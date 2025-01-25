@@ -1,63 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AdminBlogs } from "@/components/admin/AdminBlogs";
-import { AdminGallery } from "@/components/admin/AdminGallery";
-import { AdminEnquiries } from "@/components/admin/AdminEnquiries";
-import { AdminVideos } from "@/components/admin/AdminVideos";
-import { AdminHeroImages } from "@/components/admin/AdminHeroImages";
+import { Login } from "./Login";
+import AdminBlogs from "../components/admin/AdminBlogs";
+import AdminEnquiries from "../components/admin/AdminEnquiries";
+import AdminGallery from "../components/admin/AdminGallery";
+import AdminHeroImages from "../components/admin/AdminHeroImages";
+import AdminVideos from "../components/admin/AdminVideos";
 
 export const Admin = () => {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/login");
-      }
-    };
-    checkAuth();
-  }, [navigate]);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/login");
-  };
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return <Login />;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
+        <h1 className="text-3xl font-serif">Admin Dashboard</h1>
+        <button
+          onClick={() => {
+            supabase.auth.signOut();
+            navigate("/");
+          }}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+        >
+          Sign Out
+        </button>
       </div>
-
-      <Tabs defaultValue="blogs" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="blogs">Blogs</TabsTrigger>
-          <TabsTrigger value="gallery">Gallery</TabsTrigger>
-          <TabsTrigger value="videos">Videos</TabsTrigger>
-          <TabsTrigger value="enquiries">Enquiries</TabsTrigger>
-          <TabsTrigger value="hero">Hero Images</TabsTrigger>
-        </TabsList>
-        <TabsContent value="blogs">
-          <AdminBlogs />
-        </TabsContent>
-        <TabsContent value="gallery">
-          <AdminGallery />
-        </TabsContent>
-        <TabsContent value="videos">
-          <AdminVideos />
-        </TabsContent>
-        <TabsContent value="enquiries">
-          <AdminEnquiries />
-        </TabsContent>
-        <TabsContent value="hero">
-          <AdminHeroImages />
-        </TabsContent>
-      </Tabs>
+      <div className="space-y-8">
+        <AdminHeroImages />
+        <AdminGallery />
+        <AdminVideos />
+        <AdminBlogs />
+        <AdminEnquiries />
+      </div>
     </div>
   );
 };

@@ -7,23 +7,16 @@ import { supabase } from "@/integrations/supabase/client";
 export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN" && session) {
-        // Only redirect to admin if we came from the admin route
-        if (from === "/admin") {
-          navigate("/admin");
-        } else if (location.pathname === "/login") {
-          // Only redirect to home if we're actually on the login page
-          navigate("/");
-        }
+      if (event === "SIGNED_IN" && session && location.pathname === "/admin") {
+        navigate("/admin");
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, from, location.pathname]);
+  }, [navigate, location.pathname]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
@@ -34,14 +27,14 @@ export const Login = () => {
           theme: ThemeSupa,
           style: {
             button: { fontFamily: 'Playfair Display, serif' },
-            anchor: { display: 'none' }, // Hides the "Forgot password" and "Sign up" links
+            anchor: { display: 'none' },
             input: { fontFamily: 'Montserrat, sans-serif' },
             label: { fontFamily: 'Montserrat, sans-serif' }
           },
         }}
         providers={[]}
         theme="light"
-        showLinks={false} // Disables all auth links
+        showLinks={false}
       />
     </div>
   );
