@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Flower, LeafyGreen, Sprout } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  
   const { data: heroImages } = useQuery({
     queryKey: ['hero-images'],
     queryFn: async () => {
@@ -99,6 +102,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
+            onClick={() => navigate('/contact')}
           >
             Get in touch
           </motion.button>
